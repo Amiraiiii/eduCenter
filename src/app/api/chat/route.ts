@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server';
+import fs from 'fs';
+import path from 'path';
 import { RAG_KNOWLEDGE_BASE } from '@/data/ragKnowledge';
 import { COURSES } from '@/data/courses';
 
@@ -152,13 +154,47 @@ function stem(word: string): string {
     .toLowerCase();
 }
 
+// ─── Dynamic Loader for Synced Google Drive Files ───
+function loadSyncedDriveFiles(): KnowledgeChunk[] {
+  try {
+    const dir = path.join(process.cwd(), 'rag-data');
+    if (!fs.existsSync(dir)) return [];
+    const files = fs.readdirSync(dir);
+    const dynamicChunks: KnowledgeChunk[] = [];
+
+    for (const f of files) {
+      if (f.endsWith('.md') || f.endsWith('.txt')) {
+        const fullPath = path.join(dir, f);
+        const content = fs.readFileSync(fullPath, 'utf8');
+        const id = f.replace(/\.(md|txt)$/, '');
+        const title = id.replace(/[-_]/g, ' ');
+        const keywords = [id, ...title.split(' ').filter((w) => w.length > 2)];
+
+        dynamicChunks.push({
+          id: `drive_${id}`,
+          title: `Файл из Google Drive (${f})`,
+          keywords,
+          content,
+        });
+      }
+    }
+    return dynamicChunks;
+  } catch {
+    return [];
+  }
+}
+
 // ─── RAG Search / Retrieval Algorithm ───
 function retrieveKnowledge(query: string): { chunk: KnowledgeChunk; score: number }[] {
   const normalizedQuery = query.toLowerCase().replace(/[^a-zа-яё0-9\s]/gi, ' ');
   const rawTokens = normalizedQuery.split(/\s+/).filter((t) => t.length > 1);
   const stemmedTokens = rawTokens.map(stem);
 
-  const scored = KNOWLEDGE_CHUNKS.map((chunk) => {
+  // Combine static structured knowledge + live synced Google Drive files
+  const syncedChunks = loadSyncedDriveFiles();
+  const allChunks = [...KNOWLEDGE_CHUNKS, ...syncedChunks];
+
+  const scored = allChunks.map((chunk) => {
     let score = 0;
     const lowerContent = chunk.content.toLowerCase();
 
