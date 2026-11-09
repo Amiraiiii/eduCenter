@@ -247,32 +247,46 @@ ${retrievedContext}`;
           }
         ];
 
-        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents,
-            systemInstruction: {
-              parts: [{ text: systemInstruction }]
-            },
-            generationConfig: {
-              temperature: 0.2,
-              maxOutputTokens: 900,
-            }
-          })
-        });
+        // Primary model: gemini-3.5-flash-lite (fast and reliable) with fallback to gemini-flash-latest
+        const modelNames = ['gemini-3.5-flash-lite', 'gemini-3.5-flash', 'gemini-flash-latest'];
+        let generatedText: string | null = null;
+        let usedModel: string = 'gemini-3.5-flash-lite';
 
-        if (response.ok) {
-          const data = await response.json();
-          const generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (generatedText) {
-            return NextResponse.json({
-              reply: generatedText,
-              source: `RAG + Gemini 1.5 (${topMatches[0]?.chunk.title || 'EduCenter Base'})`,
+        for (const model of modelNames) {
+          try {
+            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents,
+                systemInstruction: {
+                  parts: [{ text: systemInstruction }]
+                },
+                generationConfig: {
+                  temperature: 0.2,
+                  maxOutputTokens: 900,
+                }
+              })
             });
+
+            if (response.ok) {
+              const data = await response.json();
+              generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+              if (generatedText) {
+                usedModel = model;
+                break;
+              }
+            }
+          } catch (modelErr) {
+            console.warn(`Model ${model} request failed, trying next...`, modelErr);
           }
-        } else {
-          console.warn('Gemini API call failed, falling back to local RAG synthesis');
+        }
+
+        if (generatedText) {
+          return NextResponse.json({
+            reply: generatedText,
+            source: `RAG + ${usedModel} (${topMatches[0]?.chunk.title || 'EduCenter Base'})`,
+          });
         }
       } catch (geminiError) {
         console.error('Gemini API error:', geminiError);
