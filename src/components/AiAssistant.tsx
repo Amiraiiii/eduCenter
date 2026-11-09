@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Bot, X, Send, Sparkles, Key, RefreshCw, Check, ArrowRight, User } from 'lucide-react';
+import { Bot, X, Send, Sparkles, RefreshCw, User } from 'lucide-react';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -13,9 +13,6 @@ export default function AiAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [apiKey, setApiKey] = useState('');
-  const [showKeyModal, setShowKeyModal] = useState(false);
-  const [keySaved, setKeySaved] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
 
   const [messages, setMessages] = useState<Message[]>([
@@ -25,27 +22,6 @@ export default function AiAssistant() {
       source: 'rag-knowledge'
     }
   ]);
-
-  // Load API key from localStorage if available
-  useEffect(() => {
-    const saved = localStorage.getItem('educenter_gemini_key');
-    if (saved) {
-      setApiKey(saved);
-      setKeySaved(true);
-    }
-  }, []);
-
-  const handleSaveKey = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (apiKey.trim()) {
-      localStorage.setItem('educenter_gemini_key', apiKey.trim());
-      setKeySaved(true);
-    } else {
-      localStorage.removeItem('educenter_gemini_key');
-      setKeySaved(false);
-    }
-    setShowKeyModal(false);
-  };
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -73,7 +49,6 @@ export default function AiAssistant() {
         body: JSON.stringify({
           message: text,
           history: messages.slice(-8),
-          apiKey: apiKey.trim() || undefined,
         }),
       });
 
@@ -143,7 +118,7 @@ export default function AiAssistant() {
                 <div className="flex items-center gap-1.5">
                   <h4 className="text-sm font-semibold text-white">EduCenter AI</h4>
                   <span className="text-[10px] px-1.5 py-0.2 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-mono">
-                    RAG Gemini
+                    RAG
                   </span>
                 </div>
                 <div className="flex items-center gap-1.5 text-[11px] text-zinc-400">
@@ -154,18 +129,6 @@ export default function AiAssistant() {
             </div>
 
             <div className="flex items-center gap-1">
-              <button
-                onClick={() => setShowKeyModal(true)}
-                title="Настроить Gemini API ключ"
-                className={`p-2 rounded-xl transition-colors ${
-                  keySaved
-                    ? 'text-emerald-400 hover:bg-emerald-500/10'
-                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/5'
-                }`}
-              >
-                <Key className="w-4 h-4" />
-              </button>
-
               <button
                 onClick={() => {
                   setMessages([
@@ -215,7 +178,7 @@ export default function AiAssistant() {
                   {m.source && (
                     <div className="mt-1.5 pt-1.5 border-t border-white/[0.06] text-[10px] text-zinc-400 font-mono flex items-center gap-1">
                       <Sparkles className="w-3 h-3 text-cyan-400" />
-                      <span>RAG: {m.source}</span>
+                      <span>{m.source}</span>
                     </div>
                   )}
                 </div>
@@ -237,7 +200,7 @@ export default function AiAssistant() {
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce" />
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.2s]" />
                   <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-bounce [animation-delay:0.4s]" />
-                  <span className="text-[11px] text-zinc-400 ml-1">AI думает...</span>
+                  <span className="text-[11px] text-zinc-400 ml-1">AI ищет в базе знаний...</span>
                 </div>
               </div>
             )}
@@ -282,73 +245,6 @@ export default function AiAssistant() {
               <Send className="w-4 h-4" />
             </button>
           </form>
-        </div>
-      )}
-
-      {/* Gemini API Key Configuration Modal */}
-      {showKeyModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-sm animate-in fade-in duration-200">
-          <div className="w-full max-w-md rounded-2xl bg-[#11131c] border border-white/10 p-6 shadow-2xl text-zinc-100">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center gap-2">
-                <div className="p-2 rounded-lg bg-cyan-500/10 text-cyan-400">
-                  <Key className="w-4 h-4" />
-                </div>
-                <h3 className="font-bold text-sm text-white">Google Gemini API Ключ</h3>
-              </div>
-              <button
-                onClick={() => setShowKeyModal(false)}
-                className="p-1 rounded-lg text-zinc-400 hover:text-white"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <p className="text-xs text-zinc-400 leading-relaxed mb-4">
-              Вставьте ваш персональный API ключ Google Gemini (формат AIzaSy...). Он сохраняется локально в браузере и используется для генерации ответов через модель <span className="text-cyan-400 font-mono">gemini-1.5-flash</span> с контекстом базы знаний (RAG).
-            </p>
-
-            <form onSubmit={handleSaveKey} className="space-y-4">
-              <div>
-                <input
-                  type="password"
-                  placeholder="AIzaSy..."
-                  value={apiKey}
-                  onChange={(e) => setApiKey(e.target.value)}
-                  className="w-full px-3.5 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 focus:border-cyan-500 text-white text-xs font-mono outline-none"
-                />
-              </div>
-
-              <div className="flex items-center justify-between text-[11px] text-zinc-400">
-                <a
-                  href="https://aistudio.google.com/app/apikey"
-                  target="_blank"
-                  rel="noreferrer"
-                  className="text-cyan-400 hover:underline flex items-center gap-1"
-                >
-                  <span>Получить ключ бесплатно в Google AI Studio</span>
-                  <ArrowRight className="w-3 h-3" />
-                </a>
-              </div>
-
-              <div className="flex items-center justify-end gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={() => setShowKeyModal(false)}
-                  className="px-4 py-2 rounded-xl text-xs text-zinc-400 hover:text-white transition-colors"
-                >
-                  Отмена
-                </button>
-                <button
-                  type="submit"
-                  className="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-semibold text-xs transition-colors flex items-center gap-1.5"
-                >
-                  <Check className="w-3.5 h-3.5" />
-                  <span>Сохранить ключ</span>
-                </button>
-              </div>
-            </form>
-          </div>
         </div>
       )}
     </>
