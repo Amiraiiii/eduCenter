@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduCenter — Учебный центр IT, Дизайн & Маркетинг</title>
+  <meta name="description" content="EduCenter — ведущий учебный центр по IT, дизайну и маркетингу. Профессиональное обучение с трудоустройством 94% выпускников. Онлайн и офлайн курсы.">
+  <meta property="og:title" content="EduCenter — Учебный центр IT, Дизайн & Маркетинг">
+  <meta property="og:description" content="Профессиональное обучение с трудоустройством 94% выпускников.">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="#7c3aed">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+
+  <!-- ========================
+       NAVIGATION
+       ======================== -->
+  <nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+
+      <!-- Logo -->
+      <a href="/" class="nav-logo" id="nav-logo-link">
+        <div class="nav-logo-icon">E</div>
+        <span class="nav-logo-text">Edu<span>Center</span></span>
+      </a>
+
+      <!-- Nav Links -->
+      <ul class="nav-links" id="nav-links">
+        <li><a href="pages/courses.html" class="nav-link" id="nav-courses">Курсы</a></li>
+        <li><a href="#teachers" class="nav-link" id="nav-teachers">Преподаватели</a></li>
+        <li><a href="pages/about.html" class="nav-link" id="nav-about">О нас</a></li>
+        <li><a href="#testimonials" class="nav-link" id="nav-testimonials">Отзывы</a></li>
+        <li><a href="pages/contacts.html" class="nav-link" id="nav-contacts">Контакты</a></li>
+      </ul>
+
+      <!-- Nav Actions -->
+      <div class="nav-actions" id="nav-actions">
+        <a href="#courses" class="btn btn-outline" id="nav-signin-btn" style="padding: 9px 20px; font-size: 14px;">Войти</a>
+        <a href="#courses" class="nav-cta" id="nav-cta-btn">Записаться</a>
+      </div>
+
+      <!-- Hamburger -->
+      <button class="nav-hamburger" id="hamburger-btn" aria-label="Открыть меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="#courses" class="nav-link" id="mob-courses-link">Курсы</a>
+    <a href="#teachers" class="nav-link" id="mob-teachers-link">Преподаватели</a>
+    <a href="#stats" class="nav-link" id="mob-stats-link">О нас</a>
+    <a href="#testimonials" class="nav-link" id="mob-testimonials-link">Отзывы</a>
+    <a href="#contacts" class="nav-link" id="mob-contacts-link">Контакты</a>
+    <div style="margin-top: 24px; display: flex; flex-direction: column; gap: 12px;">
+      <a href="#" class="btn btn-outline" id="mob-signin-btn" style="justify-content: center;">Войти</a>
+      <a href="#courses" class="btn btn-primary" id="mob-signup-btn" style="justify-content: center;">Записаться</a>
+    </div>
+  </div>
+
+
+  <!-- ========================
+       HERO SECTION
+       ======================== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg">
+      <canvas id="hero-particles"></canvas>
+      <div class="hero-orb hero-orb-1"></div>
+      <div class="hero-orb hero-orb-2"></div>
+      <div class="hero-orb hero-orb-3"></div>
+      <div class="hero-grid"></div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-left">
+        <div class="hero-badge" id="hero-badge">
+          <span class="dot"></span>
+          🚀 #1 Учебный центр в регионе
+        </div>
+
+        <h1 class="hero-title">
+          Начни <span class="gradient-text typed-word">карьеру</span><br>
+          в IT уже сегодня
+        </h1>
+
+        <p class="hero-subtitle">
+          Профессиональные курсы по программированию, дизайну и маркетингу.
+          Обучение с нуля до специалиста за 4–8 месяцев с гарантией трудоустройства.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#courses" class="btn btn-primary btn-lg" id="hero-cta-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M13 3L4 14h7v7l9-11h-7V3z"/></svg>
+            Выбрать курс
+          </a>
+          <a href="#stats" class="btn btn-outline btn-lg" id="hero-cta-secondary">
+            Узнать больше
+          </a>
+        </div>
+
+        <div class="hero-tags">
+          <span class="hero-tag" id="tag-webdev">💻 Веб-разработка</span>
+          <span class="hero-tag" id="tag-design">🎨 Дизайн</span>
+          <span class="hero-tag" id="tag-data">📊 Data Science</span>
+          <span class="hero-tag" id="tag-marketing">📱 Маркетинг</span>
+          <span class="hero-tag" id="tag-mobile">📲 Mobile Dev</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="glass-card stat-card" id="stat-card-students">
+          <div class="stat-icon stat-icon-purple">👥</div>
+          <div class="stat-info">
+            <div class="stat-value gradient-text" id="counter-students" data-target="15000">0</div>
+            <div class="stat-label">Студентов обучились</div>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card" id="stat-card-employment">
+          <div class="stat-icon stat-icon-cyan">💼</div>
+          <div class="stat-info">
+            <div class="stat-value gradient-text" id="counter-employment" data-target="94">0</div>
+            <div class="stat-label">% трудоустройство</div>
+          </div>
+        </div>
+
+        <div class="glass-card stat-card" id="stat-card-rating">
+          <div class="stat-icon stat-icon-green">⭐</div>
+          <div class="stat-info">
+            <div class="stat-value gradient-text">4.9</div>
+            <div class="stat-label">Средний рейтинг курсов</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================
+       COURSES SECTION
+       ======================== -->
+  <section class="courses-section" id="courses">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">📚 Наши программы</span>
+        <h2 class="section-title">Выбери своё <span class="gradient-text">направление</span></h2>
+        <p class="section-subtitle">От новичка до профессионала — у нас есть курс для каждого уровня</p>
+      </div>
+
+      <div class="courses-filter reveal">
+        <button class="filter-btn active" id="filter-all" data-filter="all">Все курсы</button>
+        <button class="filter-btn" id="filter-it" data-filter="it">💻 IT & Dev</button>
+        <button class="filter-btn" id="filter-design" data-filter="design">🎨 Дизайн</button>
+        <button class="filter-btn" id="filter-marketing" data-filter="marketing">📱 Маркетинг</button>
+        <button class="filter-btn" id="filter-data" data-filter="data">📊 Data</button>
+      </div>
+
+      <div class="courses-grid" id="courses-grid">
+
+        <!-- Web Dev -->
+        <div class="glass-card course-card" data-color="purple" data-category="it" id="course-webdev">
+          <div class="course-icon" style="background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.25);">💻</div>
+          <div class="course-card-meta">
+            <span class="course-level badge badge-purple">Начинающий</span>
+            <span class="course-rating">⭐ 4.9</span>
+          </div>
+          <h3 class="course-title">Full Stack Web Developer</h3>
+          <p class="course-desc">HTML, CSS, JavaScript, React, Node.js, PostgreSQL. Полный стек за 6 месяцев.</p>
+          <div class="course-details">
+            <span class="course-detail">📅 6 мес.</span>
+            <span class="course-detail">👨‍💻 24 студента</span>
+            <span class="course-detail">🌐 Онлайн/Офлайн</span>
+          </div>
+          <div class="course-footer">
+            <div>
+              <span class="course-price gradient-text">₽ 45,000</span>
+              <span class="course-price-old">₽ 65,000</span>
+            </div>
+            <button class="course-btn" id="course-webdev-btn">Подробнее</button>
+          </div>
+        </div>
+
+        <!-- UI/UX Design -->
+        <div class="glass-card course-card" data-color="pink" data-category="design" id="course-uiux">
+          <div class="course-icon" style="background: rgba(236,72,153,0.15); border: 1px solid rgba(236,72,153,0.25);">🎨</div>
+          <div class="course-card-meta">
+            <span class="course-level badge" style="background:rgba(236,72,153,0.1);border-color:rgba(236,72,153,0.3);color:#f9a8d4;">Начинающий</span>
+            <span class="course-rating">⭐ 4.8</span>
+          </div>
+          <h3 class="course-title">UI/UX Design Pro</h3>
+          <p class="course-desc">Figma, Adobe XD, прототипирование, пользовательский опыт, портфолио из 10 проектов.</p>
+          <div class="course-details">
+            <span class="course-detail">📅 4 мес.</span>
+            <span class="course-detail">👨‍💻 18 студентов</span>
+            <span class="course-detail">🌐 Онлайн</span>
+          </div>
+          <div class="course-footer">
+            <div>
+              <span class="course-price gradient-text">₽ 35,000</span>
+              <span class="course-price-old">₽ 50,000</span>
+            </div>
+            <button class="course-btn" id="course-uiux-btn">Подробнее</button>
+          </div>
+        </div>
+
+        <!-- Data Science -->
+        <div class="glass-card course-card" data-color="cyan" data-category="data" id="course-data">
+          <div class="course-icon" style="background: rgba(6,182,212,0.15); border: 1px solid rgba(6,182,212,0.25);">📊</div>
+          <div class="course-card-meta">
+            <span class="course-level badge badge-cyan">Средний</span>
+            <span class="course-rating">⭐ 4.9</span>
+          </div>
+          <h3 class="course-title">Data Science & ML</h3>
+          <p class="course-desc">Python, pandas, NumPy, sklearn, TensorFlow. Машинное обучение от основ до продакшена.</p>
+          <div class="course-details">
+            <span class="course-detail">📅 8 мес.</span>
+            <span class="course-detail">👨‍💻 20 студентов</span>
+            <span class="course-detail">🌐 Онлайн</span>
+          </div>
+          <div class="course-footer">
+            <div>
+              <span class="course-price gradient-text">₽ 55,000</span>
+              <span class="course-price-old">₽ 75,000</span>
+            </div>
+            <button class="course-btn" id="course-data-btn">Подробнее</button>
+          </div>
+        </div>
+
+        <!-- Mobile Dev -->
+        <div class="glass-card course-card" data-color="green" data-category="it" id="course-mobile">
+          <div class="course-icon" style="background: rgba(16,185,129,0.15); border: 1px solid rgba(16,185,129,0.25);">📱</div>
+          <div class="course-card-meta">
+            <span class="course-level badge" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:#6ee7b7;">Начинающий</span>
+            <span class="course-rating">⭐ 4.7</span>
+          </div>
+          <h3 class="course-title">Mobile Developer</h3>
+          <p class="course-desc">Flutter & Dart, iOS & Android разработка. Публикация приложений в App Store и Google Play.</p>
+          <div class="course-details">
+            <span class="course-detail">📅 5 мес.</span>
+            <span class="course-detail">👨‍💻 16 студентов</span>
+            <span class="course-detail">🌐 Офлайн</span>
+          </div>
+          <div class="course-footer">
+            <div>
+              <span class="course-price gradient-text">₽ 42,000</span>
+              <span class="course-price-old">₽ 60,000</span>
+            </div>
+            <button class="course-btn" id="course-mobile-btn">Подробнее</button>
+          </div>
+        </div>
+
+        <!-- Digital Marketing -->
+        <div class="glass-card course-card" data-color="orange" data-category="marketing" id="course-marketing">
+          <div class="course-icon" style="background: rgba(245,158,11,0.15); border: 1px solid rgba(245,158,11,0.25);">📣</div>
+          <div class="course-card-meta">
+            <span class="course-level badge" style="background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:#fcd34d;">Начинающий</span>
+            <span class="course-rating">⭐ 4.8</span>
+          </div>
+          <h3 class="course-title">Digital Marketing</h3>
+          <p class="course-desc">SMM, таргетинг, SEO, контент-маркетинг, email-рассылки, аналитика и A/B тесты.</p>
+          <div class="course-details">
+            <span class="course-detail">📅 3 мес.</span>
+            <span class="course-detail">👨‍💻 30 студентов</span>
+            <span class="course-detail">🌐 Онлайн/Офлайн</span>
+          </div>
+          <div class="course-footer">
+            <div>
+              <span class="course-price gradient-text">₽ 28,000</span>
+              <span class="course-price-old">₽ 40,000</span>
+            </div>
+            <button class="course-btn" id="course-marketing-btn">Подробнее</button>
+          </div>
+        </div>
+
+        <!-- Cybersecurity -->
+        <div class="glass-card course-card" data-color="blue" data-category="it" id="course-security">
+          <div class="course-icon" style="background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.25);">🛡️</div>
+          <div class="course-card-meta">
+            <span class="course-level badge" style="background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:#93c5fd;">Средний</span>
+            <span class="course-rating">⭐ 4.9</span>
+          </div>
+          <h3 class="course-title">Кибербезопасность</h3>
+          <p class="course-desc">Этичный хакинг, penetration testing, защита сетей, CTF, сертификация CEH/CompTIA.</p>
+          <div class="course-details">
+            <span class="course-detail">📅 6 мес.</span>
+            <span class="course-detail">👨‍💻 12 студентов</span>
+            <span class="course-detail">🌐 Онлайн</span>
+          </div>
+          <div class="course-footer">
+            <div>
+              <span class="course-price gradient-text">₽ 50,000</span>
+              <span class="course-price-old">₽ 70,000</span>
+            </div>
+            <button class="course-btn" id="course-security-btn">Подробнее</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================
+       STATS SECTION
+       ======================== -->
+  <section class="stats-section" id="stats">
+    <div class="container">
+      <div class="stats-inner reveal">
+        <div class="stat-item" id="stat-global-students">
+          <div class="stat-num" data-target="15000" data-suffix="+">0</div>
+          <div class="stat-desc">Выпускников</div>
+        </div>
+        <div class="stat-item" id="stat-courses">
+          <div class="stat-num" data-target="45" data-suffix="+">0</div>
+          <div class="stat-desc">Курсов</div>
+        </div>
+        <div class="stat-item" id="stat-teachers">
+          <div class="stat-num" data-target="120" data-suffix="+">0</div>
+          <div class="stat-desc">Преподавателей</div>
+        </div>
+        <div class="stat-item" id="stat-employment">
+          <div class="stat-num" data-target="94" data-suffix="%">0</div>
+          <div class="stat-desc">Трудоустройство</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================
+       TEACHERS SECTION
+       ======================== -->
+  <section class="teachers-section" id="teachers">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">👨‍🏫 Наша команда</span>
+        <h2 class="section-title">Учись у <span class="gradient-text">лучших</span></h2>
+        <p class="section-subtitle">Наши преподаватели — практикующие специалисты с опытом работы в ведущих компаниях</p>
+      </div>
+
+      <div class="teachers-grid">
+
+        <div class="glass-card teacher-card reveal" id="teacher-alex">
+          <div class="teacher-avatar">А</div>
+          <div class="teacher-name">Алексей Петров</div>
+          <div class="teacher-role">Senior Full Stack Developer</div>
+          <p class="teacher-bio">8 лет опыта в разработке. Работал в Yandex, Mail.ru. Разработал более 50 коммерческих проектов.</p>
+          <div class="teacher-socials">
+            <a href="#" class="teacher-social" id="teacher-alex-github">🐙</a>
+            <a href="#" class="teacher-social" id="teacher-alex-linkedin">💼</a>
+            <a href="#" class="teacher-social" id="teacher-alex-tg">✈️</a>
+          </div>
+        </div>
+
+        <div class="glass-card teacher-card reveal" id="teacher-maria">
+          <div class="teacher-avatar" style="background: linear-gradient(135deg, #ec4899, #a855f7);">М</div>
+          <div class="teacher-name">Мария Соколова</div>
+          <div class="teacher-role">Lead UI/UX Designer</div>
+          <p class="teacher-bio">Дизайнер с опытом 6 лет. Портфолио включает проекты для Samsung, Kaspersky, Сбербанк.</p>
+          <div class="teacher-socials">
+            <a href="#" class="teacher-social" id="teacher-maria-behance">🎨</a>
+            <a href="#" class="teacher-social" id="teacher-maria-dribbble">🏀</a>
+            <a href="#" class="teacher-social" id="teacher-maria-tg">✈️</a>
+          </div>
+        </div>
+
+        <div class="glass-card teacher-card reveal" id="teacher-dmitry">
+          <div class="teacher-avatar" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">Д</div>
+          <div class="teacher-name">Дмитрий Козлов</div>
+          <div class="teacher-role">Data Scientist & ML Engineer</div>
+          <p class="teacher-bio">PhD в математике. Строил ML-модели для Сбер AI, участвовал в проектах NASA. Kaggle Master.</p>
+          <div class="teacher-socials">
+            <a href="#" class="teacher-social" id="teacher-dmitry-kaggle">📊</a>
+            <a href="#" class="teacher-social" id="teacher-dmitry-github">🐙</a>
+            <a href="#" class="teacher-social" id="teacher-dmitry-tg">✈️</a>
+          </div>
+        </div>
+
+        <div class="glass-card teacher-card reveal" id="teacher-anna">
+          <div class="teacher-avatar" style="background: linear-gradient(135deg, #10b981, #06b6d4);">А</div>
+          <div class="teacher-name">Анна Белова</div>
+          <div class="teacher-role">Digital Marketing Expert</div>
+          <p class="teacher-bio">7 лет в маркетинге. Управляла бюджетами от 10 млн руб. Сертифицированный Google Ads специалист.</p>
+          <div class="teacher-socials">
+            <a href="#" class="teacher-social" id="teacher-anna-linkedin">💼</a>
+            <a href="#" class="teacher-social" id="teacher-anna-inst">📸</a>
+            <a href="#" class="teacher-social" id="teacher-anna-tg">✈️</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================
+       TESTIMONIALS
+       ======================== -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">💬 Отзывы</span>
+        <h2 class="section-title">Что говорят наши <span class="gradient-text">выпускники</span></h2>
+        <p class="section-subtitle">Реальные истории успеха наших студентов</p>
+      </div>
+
+      <div class="testimonials-grid">
+
+        <div class="glass-card testimonial-card reveal" id="testimonial-1">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">«EduCenter кардинально изменил мою жизнь. После курса Full Stack меня взяли в стартап с зарплатой в 3 раза выше прежней. Менторы всегда на связи и помогают даже после окончания курса.»</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar">К</div>
+            <div>
+              <div class="testimonial-name">Карим Ахмедов</div>
+              <div class="testimonial-course">Full Stack Web Developer · 2024</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card testimonial-card reveal" id="testimonial-2">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">«Курс UI/UX дизайна превзошёл все ожидания. Программа актуальная, преподаватели — практики. Через месяц после выпуска уже работала в крупном агентстве. Рекомендую всем!»</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #ec4899, #a855f7);">З</div>
+            <div>
+              <div class="testimonial-name">Зарина Исмаилова</div>
+              <div class="testimonial-course">UI/UX Design Pro · 2024</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="glass-card testimonial-card reveal" id="testimonial-3">
+          <div class="testimonial-stars">★★★★★</div>
+          <p class="testimonial-text">«Data Science курс — лучшее вложение в себя. Отличная структура, реальные кейсы, Kaggle-соревнования. Теперь работаю ML-инженером в финтех компании с доходом x4.»</p>
+          <div class="testimonial-author">
+            <div class="testimonial-avatar" style="background: linear-gradient(135deg, #06b6d4, #3b82f6);">Р</div>
+            <div>
+              <div class="testimonial-name">Руслан Нуров</div>
+              <div class="testimonial-course">Data Science & ML · 2023</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================
+       CTA SECTION
+       ======================== -->
+  <section class="cta-section" id="contacts">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <h2 class="cta-title">Готов начать <span class="gradient-text">своё будущее?</span></h2>
+        <p class="cta-subtitle">Запишись на бесплатную консультацию и мы поможем выбрать подходящий курс</p>
+        <div class="cta-actions">
+          <a href="#courses" class="btn btn-primary btn-lg" id="cta-primary-btn">
+            🚀 Записаться бесплатно
+          </a>
+          <a href="tel:+78001234567" class="btn btn-outline btn-lg" id="cta-phone-btn">
+            📞 +7 (800) 123-45-67
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========================
+       FOOTER
+       ======================== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+
+        <div class="footer-brand">
+          <a href="/" class="nav-logo" id="footer-logo">
+            <div class="nav-logo-icon">E</div>
+            <span class="nav-logo-text">Edu<span>Center</span></span>
+          </a>
+          <p>Учебный центр нового поколения. Практическое обучение IT, дизайну и маркетингу с гарантией трудоустройства.</p>
+          <div class="footer-socials">
+            <a href="#" class="footer-social" id="footer-tg" title="Telegram">✈️</a>
+            <a href="#" class="footer-social" id="footer-inst" title="Instagram">📸</a>
+            <a href="#" class="footer-social" id="footer-vk" title="ВКонтакте">💙</a>
+            <a href="#" class="footer-social" id="footer-youtube" title="YouTube">▶️</a>
+            <a href="#" class="footer-social" id="footer-github" title="GitHub">🐙</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Курсы</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link" id="footer-link-webdev">Full Stack Dev</a>
+            <a href="#" class="footer-link" id="footer-link-uiux">UI/UX Дизайн</a>
+            <a href="#" class="footer-link" id="footer-link-data">Data Science</a>
+            <a href="#" class="footer-link" id="footer-link-mobile">Mobile Dev</a>
+            <a href="#" class="footer-link" id="footer-link-marketing">Digital Marketing</a>
+            <a href="#" class="footer-link" id="footer-link-security">Кибербезопасность</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Компания</div>
+          <div class="footer-links">
+            <a href="#" class="footer-link" id="footer-link-about">О нас</a>
+            <a href="#" class="footer-link" id="footer-link-teachers">Преподаватели</a>
+            <a href="#" class="footer-link" id="footer-link-reviews">Отзывы</a>
+            <a href="#" class="footer-link" id="footer-link-blog">Блог</a>
+            <a href="#" class="footer-link" id="footer-link-careers">Карьера</a>
+          </div>
+        </div>
+
+        <div>
+          <div class="footer-col-title">Контакты</div>
+          <div class="footer-links">
+            <a href="tel:+78001234567" class="footer-link" id="footer-phone">📞 +7 (800) 123-45-67</a>
+            <a href="mailto:info@educenter.ru" class="footer-link" id="footer-email">✉️ info@educenter.ru</a>
+            <span class="footer-link">📍 Москва, ул. Арбат 1</span>
+            <span class="footer-link">⏰ Пн–Пт: 9:00–20:00</span>
+            <span class="footer-link">⏰ Сб: 10:00–18:00</span>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2024 EduCenter. Все права защищены.</span>
+        <span style="display:flex;gap:20px;">
+          <a href="#" class="footer-link" id="footer-privacy">Политика конфиденциальности</a>
+          <a href="#" class="footer-link" id="footer-terms">Условия использования</a>
+        </span>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ========================
+       AI ASSISTANT WIDGET
+       ======================== -->
+
+  <!-- Floating Button -->
+  <button class="ai-float-btn" id="ai-float-btn" aria-label="Открыть AI-ассистента">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z" opacity="0"/>
+      <path d="M9.663 17h4.673L12 13.2 9.663 17zM12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9 9-4.03 9-9-4.03-9-9-9zm0 16c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7z"/>
+      <path d="M21 10.5h-1.5v-2h-2v2H16v2h1.5v2h2v-2H21v-2z" opacity="0"/>
+      <!-- AI Icon: brain/spark -->
+      <path fill="white" d="M12 1L9.5 8H2l6 4.5L5.5 20 12 16l6.5 4L16 12.5 22 8h-7.5L12 1z"/>
+    </svg>
+  </button>
+
+  <!-- Chat Widget -->
+  <div class="ai-chat-widget hidden" id="ai-chat-widget" role="dialog" aria-label="AI-ассистент EduCenter">
+
+    <!-- Header -->
+    <div class="ai-chat-header">
+      <div class="ai-avatar">🤖</div>
+      <div class="ai-info">
+        <div class="ai-name">EduAI Ассистент</div>
+        <div class="ai-status">Онлайн — готов помочь</div>
+      </div>
+      <button class="ai-chat-close" id="ai-chat-close" aria-label="Закрыть чат">✕</button>
+    </div>
+
+    <!-- API Key Config (shown if not set) -->
+    <div class="ai-api-key-area" id="ai-api-key-area">
+      <div class="ai-api-key-label">🔑 Gemini API Key (для RAG-ответов)</div>
+      <input type="password" id="ai-api-key-input" class="ai-api-key-input" placeholder="AIza...">
+    </div>
+
+    <!-- Messages -->
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="ai-msg ai-msg-bot" id="ai-greeting-msg">
+        <div class="ai-msg-avatar">🤖</div>
+        <div class="ai-msg-bubble">
+          Привет! 👋 Я AI-ассистент EduCenter.<br><br>
+          Могу ответить на вопросы о курсах, преподавателях, расписании и записи. Чем могу помочь?
+        </div>
+      </div>
+    </div>
+
+    <!-- Quick Replies -->
+    <div class="ai-quick-replies" id="ai-quick-replies">
+      <button class="ai-quick-reply" id="qr-courses">Какие курсы есть?</button>
+      <button class="ai-quick-reply" id="qr-price">Стоимость обучения</button>
+      <button class="ai-quick-reply" id="qr-enrollment">Как записаться?</button>
+      <button class="ai-quick-reply" id="qr-employment">Помогаете трудоустроиться?</button>
+    </div>
+
+    <!-- Input Area -->
+    <div class="ai-chat-input-area">
+      <textarea id="ai-input" placeholder="Напишите вопрос..." rows="1" aria-label="Сообщение AI-ассистенту"></textarea>
+      <button class="ai-send-btn" id="ai-send-btn" aria-label="Отправить">➤</button>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/main.js"></script>
+  <script src="js/ai-assistant.js"></script>
+</body>
+</html>

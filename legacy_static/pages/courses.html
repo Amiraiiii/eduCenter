@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Курсы — EduCenter | IT, Дизайн, Маркетинг</title>
+  <meta name="description" content="Все курсы EduCenter: веб-разработка, UI/UX дизайн, Data Science, мобильная разработка, digital marketing, кибербезопасность. Онлайн и офлайн.">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ── Courses Page Specific ── */
+    .courses-hero {
+      padding: 140px 0 80px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .courses-hero::before {
+      content: '';
+      position: absolute;
+      top: -200px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 800px;
+      height: 800px;
+      background: radial-gradient(circle, rgba(124,58,237,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .courses-hero-title {
+      font-size: clamp(36px, 5vw, 64px);
+      margin-bottom: 16px;
+      position: relative;
+    }
+
+    .courses-hero-sub {
+      font-size: 18px;
+      color: var(--text-secondary);
+      max-width: 560px;
+      margin: 0 auto 48px;
+      position: relative;
+    }
+
+    /* Search & Filter Bar */
+    .courses-search-bar {
+      max-width: 700px;
+      margin: 0 auto 48px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .search-input-wrap {
+      flex: 1;
+      min-width: 280px;
+      position: relative;
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    #course-search {
+      width: 100%;
+      padding: 14px 14px 14px 44px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    #course-search:focus { border-color: rgba(124,58,237,0.4); }
+    #course-search::placeholder { color: var(--text-muted); }
+
+    /* Sort */
+    #course-sort {
+      padding: 14px 18px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%2394a3b8'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      padding-right: 36px;
+    }
+
+    /* Filter Tags */
+    .courses-filters {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+    }
+
+    /* Courses Grid */
+    .courses-page-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 28px;
+      margin-bottom: 80px;
+    }
+
+    /* Course Card Extended */
+    .course-card-ext {
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .course-card-img {
+      height: 180px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 64px;
+      position: relative;
+    }
+
+    .course-card-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, rgba(13,13,26,0.8) 100%);
+    }
+
+    .course-card-body { padding: 24px; }
+
+    .course-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px;
+    }
+
+    .course-tag-pill {
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 100px;
+      background: rgba(124,58,237,0.1);
+      border: 1px solid rgba(124,58,237,0.2);
+      color: #a78bfa;
+    }
+
+    .course-features {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin: 16px 0;
+    }
+
+    .course-feature {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    .course-feature-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(16,185,129,0.15);
+      border: 1px solid rgba(16,185,129,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      flex-shrink: 0;
+    }
+
+    .enroll-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: var(--radius-sm);
+      font-size: 15px;
+      font-weight: 600;
+      transition: all var(--transition-base);
+      margin-top: 20px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .enroll-btn:hover {
+      box-shadow: 0 8px 24px rgba(124,58,237,0.4);
+      transform: translateY(-2px);
+    }
+
+    /* No results */
+    .no-results {
+      text-align: center;
+      padding: 80px 0;
+      color: var(--text-muted);
+      font-size: 18px;
+      display: none;
+      grid-column: 1 / -1;
+    }
+
+    .no-results.visible { display: block; }
+
+    /* Enrollment Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(8px);
+      z-index: 5000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modal {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-xl);
+      padding: 40px;
+      width: 100%;
+      max-width: 480px;
+      transform: translateY(20px) scale(0.97);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .modal-overlay.open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      font-family: var(--font-display);
+    }
+
+    .modal-subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      margin-bottom: 28px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 13px 16px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 15px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color var(--transition-fast);
+    }
+
+    .form-input:focus { border-color: rgba(124,58,237,0.4); }
+
+    .form-select {
+      appearance: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+    }
+
+    .form-submit {
+      width: 100%;
+      padding: 16px;
+      background: var(--gradient-primary);
+      color: white;
+      border-radius: var(--radius-sm);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      border: none;
+      margin-top: 8px;
+      transition: all var(--transition-base);
+    }
+
+    .form-submit:hover {
+      box-shadow: 0 8px 24px rgba(124,58,237,0.4);
+      transform: translateY(-2px);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.05);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: all var(--transition-fast);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .modal-close-btn:hover { background: rgba(255,255,255,0.1); color: var(--text-primary); }
+
+    .success-state {
+      text-align: center;
+      padding: 20px 0;
+      display: none;
+    }
+
+    .success-state.visible { display: block; }
+    .success-icon { font-size: 56px; margin-bottom: 16px; }
+    .success-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+    .success-sub { font-size: 15px; color: var(--text-secondary); }
+
+    @media (max-width: 768px) {
+      .courses-page-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========================
+       NAVIGATION
+       ======================== -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="nav-logo" id="nav-logo-link">
+        <div class="nav-logo-icon">E</div>
+        <span class="nav-logo-text">Edu<span>Center</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="courses.html" class="nav-link active" id="nav-courses">Курсы</a></li>
+        <li><a href="about.html" class="nav-link" id="nav-about">О нас</a></li>
+        <li><a href="contacts.html" class="nav-link" id="nav-contacts">Контакты</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="contacts.html" class="nav-cta" id="nav-cta-btn">Записаться</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger-btn" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ========================
+       HERO
+       ======================== -->
+  <section class="courses-hero">
+    <div class="container">
+      <span class="section-tag">📚 Все программы</span>
+      <h1 class="courses-hero-title">Найди свой <span class="gradient-text">идеальный курс</span></h1>
+      <p class="courses-hero-sub">45+ программ обучения по IT, дизайну и маркетингу. От новичка до профессионала.</p>
+
+      <!-- Search -->
+      <div class="courses-search-bar">
+        <div class="search-input-wrap">
+          <span class="search-icon">🔍</span>
+          <input type="search" id="course-search" placeholder="Поиск курсов..." aria-label="Поиск курсов">
+        </div>
+        <select id="course-sort" aria-label="Сортировка">
+          <option value="default">По умолчанию</option>
+          <option value="price-asc">Цена: от низкой</option>
+          <option value="price-desc">Цена: от высокой</option>
+          <option value="duration-asc">По длительности</option>
+          <option value="rating">По рейтингу</option>
+        </select>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="courses-filters">
+        <button class="filter-btn active" id="filter-all" data-filter="all">Все</button>
+        <button class="filter-btn" id="filter-it" data-filter="it">💻 IT & Dev</button>
+        <button class="filter-btn" id="filter-design" data-filter="design">🎨 Дизайн</button>
+        <button class="filter-btn" id="filter-marketing" data-filter="marketing">📣 Маркетинг</button>
+        <button class="filter-btn" id="filter-data" data-filter="data">📊 Data & AI</button>
+        <button class="filter-btn" id="filter-security" data-filter="security">🛡️ Безопасность</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       COURSES GRID
+       ======================== -->
+  <main>
+    <div class="container">
+      <div class="courses-page-grid" id="courses-grid">
+
+        <!-- Full Stack Web Dev -->
+        <article class="glass-card course-card-ext reveal" data-category="it" data-price="45000" data-duration="6" data-rating="4.9" id="course-fullstack">
+          <div class="course-card-img" style="background: linear-gradient(135deg, rgba(124,58,237,0.3), rgba(59,130,246,0.2));">💻</div>
+          <div class="course-card-body">
+            <div class="course-tags">
+              <span class="course-tag-pill">IT</span>
+              <span class="course-tag-pill">Начинающий</span>
+              <span class="course-tag-pill">🔥 Популярный</span>
+            </div>
+            <div class="course-card-meta">
+              <span class="course-rating">⭐ 4.9</span>
+              <span style="font-size:13px;color:var(--text-muted);">6 мес.</span>
+            </div>
+            <h2 class="course-title">Full Stack Web Developer</h2>
+            <p class="course-desc">Освой HTML/CSS, JavaScript, React, Node.js, базы данных. Создай 5 реальных проектов.</p>
+            <div class="course-features">
+              <div class="course-feature"><div class="course-feature-icon">✓</div>24 студента в группе</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Помощь в трудоустройстве</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Сертификат по окончании</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Онлайн и офлайн занятия</div>
+            </div>
+            <div class="course-footer">
+              <div>
+                <span class="course-price gradient-text">₽ 45,000</span>
+                <span class="course-price-old">₽ 65,000</span>
+              </div>
+            </div>
+            <button class="enroll-btn" id="enroll-fullstack" data-course="Full Stack Web Developer" data-price="45000">Записаться на курс</button>
+          </div>
+        </article>
+
+        <!-- UI/UX Design -->
+        <article class="glass-card course-card-ext reveal" data-category="design" data-price="35000" data-duration="4" data-rating="4.8" id="course-uiux">
+          <div class="course-card-img" style="background: linear-gradient(135deg, rgba(236,72,153,0.3), rgba(168,85,247,0.2));">🎨</div>
+          <div class="course-card-body">
+            <div class="course-tags">
+              <span class="course-tag-pill" style="background:rgba(236,72,153,0.1);border-color:rgba(236,72,153,0.3);color:#f9a8d4;">Дизайн</span>
+              <span class="course-tag-pill" style="background:rgba(236,72,153,0.1);border-color:rgba(236,72,153,0.3);color:#f9a8d4;">Начинающий</span>
+            </div>
+            <div class="course-card-meta">
+              <span class="course-rating">⭐ 4.8</span>
+              <span style="font-size:13px;color:var(--text-muted);">4 мес.</span>
+            </div>
+            <h2 class="course-title">UI/UX Design Pro</h2>
+            <p class="course-desc">Figma, Adobe XD, Illustrator. Пользовательские исследования, прототипирование, портфолио.</p>
+            <div class="course-features">
+              <div class="course-feature"><div class="course-feature-icon">✓</div>10 проектов в портфолио</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Ревью от практиков</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Нетворкинг с работодателями</div>
+            </div>
+            <div class="course-footer">
+              <div>
+                <span class="course-price gradient-text">₽ 35,000</span>
+                <span class="course-price-old">₽ 50,000</span>
+              </div>
+            </div>
+            <button class="enroll-btn" id="enroll-uiux" data-course="UI/UX Design Pro" data-price="35000">Записаться на курс</button>
+          </div>
+        </article>
+
+        <!-- Data Science -->
+        <article class="glass-card course-card-ext reveal" data-category="data" data-price="55000" data-duration="8" data-rating="4.9" id="course-datascience">
+          <div class="course-card-img" style="background: linear-gradient(135deg, rgba(6,182,212,0.3), rgba(59,130,246,0.2));">📊</div>
+          <div class="course-card-body">
+            <div class="course-tags">
+              <span class="course-tag-pill" style="background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3);color:#67e8f9;">Data & AI</span>
+              <span class="course-tag-pill" style="background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3);color:#67e8f9;">Средний</span>
+              <span class="course-tag-pill" style="background:rgba(6,182,212,0.1);border-color:rgba(6,182,212,0.3);color:#67e8f9;">🤖 AI</span>
+            </div>
+            <div class="course-card-meta">
+              <span class="course-rating">⭐ 4.9</span>
+              <span style="font-size:13px;color:var(--text-muted);">8 мес.</span>
+            </div>
+            <h2 class="course-title">Data Science & ML</h2>
+            <p class="course-desc">Python, pandas, NumPy, Matplotlib, sklearn, TensorFlow, PyTorch. Kaggle соревнования.</p>
+            <div class="course-features">
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Реальные датасеты</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Kaggle Master наставник</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Облачные GPU для обучения</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Проект для портфолио</div>
+            </div>
+            <div class="course-footer">
+              <div>
+                <span class="course-price gradient-text">₽ 55,000</span>
+                <span class="course-price-old">₽ 75,000</span>
+              </div>
+            </div>
+            <button class="enroll-btn" id="enroll-datascience" data-course="Data Science & ML" data-price="55000">Записаться на курс</button>
+          </div>
+        </article>
+
+        <!-- Mobile Dev -->
+        <article class="glass-card course-card-ext reveal" data-category="it" data-price="42000" data-duration="5" data-rating="4.7" id="course-mobile">
+          <div class="course-card-img" style="background: linear-gradient(135deg, rgba(16,185,129,0.3), rgba(6,182,212,0.2));">📱</div>
+          <div class="course-card-body">
+            <div class="course-tags">
+              <span class="course-tag-pill" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:#6ee7b7;">IT</span>
+              <span class="course-tag-pill" style="background:rgba(16,185,129,0.1);border-color:rgba(16,185,129,0.3);color:#6ee7b7;">Начинающий</span>
+            </div>
+            <div class="course-card-meta">
+              <span class="course-rating">⭐ 4.7</span>
+              <span style="font-size:13px;color:var(--text-muted);">5 мес.</span>
+            </div>
+            <h2 class="course-title">Mobile Developer</h2>
+            <p class="course-desc">Flutter & Dart для iOS и Android. Публикация в App Store и Google Play. Монетизация.</p>
+            <div class="course-features">
+              <div class="course-feature"><div class="course-feature-icon">✓</div>3 приложения в портфолио</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Публикация в сторах</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Firebase интеграция</div>
+            </div>
+            <div class="course-footer">
+              <div>
+                <span class="course-price gradient-text">₽ 42,000</span>
+                <span class="course-price-old">₽ 60,000</span>
+              </div>
+            </div>
+            <button class="enroll-btn" id="enroll-mobile" data-course="Mobile Developer" data-price="42000">Записаться на курс</button>
+          </div>
+        </article>
+
+        <!-- Digital Marketing -->
+        <article class="glass-card course-card-ext reveal" data-category="marketing" data-price="28000" data-duration="3" data-rating="4.8" id="course-marketing">
+          <div class="course-card-img" style="background: linear-gradient(135deg, rgba(245,158,11,0.3), rgba(239,68,68,0.2));">📣</div>
+          <div class="course-card-body">
+            <div class="course-tags">
+              <span class="course-tag-pill" style="background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:#fcd34d;">Маркетинг</span>
+              <span class="course-tag-pill" style="background:rgba(245,158,11,0.1);border-color:rgba(245,158,11,0.3);color:#fcd34d;">Начинающий</span>
+            </div>
+            <div class="course-card-meta">
+              <span class="course-rating">⭐ 4.8</span>
+              <span style="font-size:13px;color:var(--text-muted);">3 мес.</span>
+            </div>
+            <h2 class="course-title">Digital Marketing</h2>
+            <p class="course-desc">SMM, таргетинг VK/Instagram, SEO, контент-план, email маркетинг, аналитика и A/B тесты.</p>
+            <div class="course-features">
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Реальный рекламный бюджет</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Google Ads сертификат</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Работа с клиентами</div>
+            </div>
+            <div class="course-footer">
+              <div>
+                <span class="course-price gradient-text">₽ 28,000</span>
+                <span class="course-price-old">₽ 40,000</span>
+              </div>
+            </div>
+            <button class="enroll-btn" id="enroll-marketing" data-course="Digital Marketing" data-price="28000">Записаться на курс</button>
+          </div>
+        </article>
+
+        <!-- Cybersecurity -->
+        <article class="glass-card course-card-ext reveal" data-category="security" data-price="50000" data-duration="6" data-rating="4.9" id="course-security">
+          <div class="course-card-img" style="background: linear-gradient(135deg, rgba(59,130,246,0.3), rgba(124,58,237,0.2));">🛡️</div>
+          <div class="course-card-body">
+            <div class="course-tags">
+              <span class="course-tag-pill" style="background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:#93c5fd;">Безопасность</span>
+              <span class="course-tag-pill" style="background:rgba(59,130,246,0.1);border-color:rgba(59,130,246,0.3);color:#93c5fd;">Средний</span>
+            </div>
+            <div class="course-card-meta">
+              <span class="course-rating">⭐ 4.9</span>
+              <span style="font-size:13px;color:var(--text-muted);">6 мес.</span>
+            </div>
+            <h2 class="course-title">Кибербезопасность</h2>
+            <p class="course-desc">Этичный хакинг, penetration testing, Kali Linux, CTF соревнования, сертификация CEH.</p>
+            <div class="course-features">
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Реальные CTF задания</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Лаборатория для практики</div>
+              <div class="course-feature"><div class="course-feature-icon">✓</div>Подготовка к CEH/OSCP</div>
+            </div>
+            <div class="course-footer">
+              <div>
+                <span class="course-price gradient-text">₽ 50,000</span>
+                <span class="course-price-old">₽ 70,000</span>
+              </div>
+            </div>
+            <button class="enroll-btn" id="enroll-security" data-course="Кибербезопасность" data-price="50000">Записаться на курс</button>
+          </div>
+        </article>
+
+        <!-- No Results Placeholder -->
+        <div class="no-results" id="no-results">
+          🔍 Курсы не найдены. Попробуйте другой запрос.
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- ========================
+       ENROLLMENT MODAL
+       ======================== -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal" style="position:relative;">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Закрыть">✕</button>
+
+      <!-- Form State -->
+      <div id="form-state">
+        <h2 class="modal-title" id="modal-title">Записаться на курс</h2>
+        <p class="modal-subtitle" id="modal-course-name">Оставьте заявку — мы свяжемся в течение часа</p>
+
+        <form id="enrollment-form" novalidate>
+          <div class="form-group">
+            <label class="form-label" for="f-name">Ваше имя *</label>
+            <input class="form-input" type="text" id="f-name" name="name" placeholder="Иван Иванов" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-phone">Телефон *</label>
+            <input class="form-input" type="tel" id="f-phone" name="phone" placeholder="+7 (999) 000-00-00" required autocomplete="tel">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-email">Email</label>
+            <input class="form-input" type="email" id="f-email" name="email" placeholder="ivan@example.com" autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="f-format">Формат обучения</label>
+            <select class="form-input form-select" id="f-format" name="format">
+              <option value="online">🌐 Онлайн</option>
+              <option value="offline">🏢 Офлайн (Москва)</option>
+              <option value="hybrid">🔄 Гибрид</option>
+            </select>
+          </div>
+          <button type="submit" class="form-submit" id="form-submit-btn">🚀 Отправить заявку</button>
+        </form>
+      </div>
+
+      <!-- Success State -->
+      <div class="success-state" id="success-state">
+        <div class="success-icon">🎉</div>
+        <h3 class="success-title">Заявка принята!</h3>
+        <p class="success-sub">Мы свяжемся с вами в течение часа по телефону.<br>Ожидайте звонка!</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- AI Assistant -->
+  <button class="ai-float-btn" id="ai-float-btn" aria-label="AI-ассистент">
+    <svg viewBox="0 0 24 24" fill="white"><path d="M12 1L9.5 8H2l6 4.5L5.5 20 12 16l6.5 4L16 12.5 22 8h-7.5L12 1z"/></svg>
+  </button>
+
+  <div class="ai-chat-widget hidden" id="ai-chat-widget">
+    <div class="ai-chat-header">
+      <div class="ai-avatar">🤖</div>
+      <div class="ai-info">
+        <div class="ai-name">EduAI Ассистент</div>
+        <div class="ai-status">Онлайн</div>
+      </div>
+      <button class="ai-chat-close" id="ai-chat-close">✕</button>
+    </div>
+    <div class="ai-api-key-area" id="ai-api-key-area">
+      <div class="ai-api-key-label">🔑 Gemini API Key</div>
+      <input type="password" id="ai-api-key-input" class="ai-api-key-input" placeholder="AIza...">
+    </div>
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="ai-msg ai-msg-bot">
+        <div class="ai-msg-avatar">🤖</div>
+        <div class="ai-msg-bubble">Привет! Помогу выбрать курс. Какая сфера вас интересует: IT, дизайн или маркетинг?</div>
+      </div>
+    </div>
+    <div class="ai-quick-replies" id="ai-quick-replies">
+      <button class="ai-quick-reply" id="qr-recommend">Помоги выбрать</button>
+      <button class="ai-quick-reply" id="qr-price">Самый дешёвый</button>
+      <button class="ai-quick-reply" id="qr-popular">Популярные</button>
+    </div>
+    <div class="ai-chat-input-area">
+      <textarea id="ai-input" placeholder="Ваш вопрос..." rows="1"></textarea>
+      <button class="ai-send-btn" id="ai-send-btn">➤</button>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/ai-assistant.js"></script>
+  <script>
+    // ── Course Search & Filter ──
+    const searchInput = document.getElementById('course-search');
+    const sortSelect = document.getElementById('course-sort');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const grid = document.getElementById('courses-grid');
+    const cards = [...grid.querySelectorAll('.course-card-ext')];
+    const noResults = document.getElementById('no-results');
+
+    let currentFilter = 'all';
+
+    function applyFilters() {
+      const query = searchInput.value.toLowerCase().trim();
+
+      let visible = cards.filter(card => {
+        const cat = card.dataset.category;
+        const title = card.querySelector('.course-title')?.textContent.toLowerCase() || '';
+        const desc = card.querySelector('.course-desc')?.textContent.toLowerCase() || '';
+
+        const matchFilter = currentFilter === 'all' || cat === currentFilter;
+        const matchSearch = !query || title.includes(query) || desc.includes(query);
+
+        return matchFilter && matchSearch;
+      });
+
+      // Sort
+      const sortVal = sortSelect.value;
+      if (sortVal === 'price-asc') visible.sort((a, b) => +a.dataset.price - +b.dataset.price);
+      if (sortVal === 'price-desc') visible.sort((a, b) => +b.dataset.price - +a.dataset.price);
+      if (sortVal === 'duration-asc') visible.sort((a, b) => +a.dataset.duration - +b.dataset.duration);
+      if (sortVal === 'rating') visible.sort((a, b) => +b.dataset.rating - +a.dataset.rating);
+
+      const visibleIds = new Set(visible.map(c => c.id));
+      cards.forEach(card => {
+        const show = visibleIds.has(card.id);
+        card.style.display = show ? '' : 'none';
+        card.style.animation = show ? 'fadeInUp 0.4s ease both' : '';
+      });
+
+      noResults.classList.toggle('visible', visible.length === 0);
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    sortSelect.addEventListener('change', applyFilters);
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.dataset.filter;
+        applyFilters();
+      });
+    });
+
+    // ── Enrollment Modal ──
+    const overlay = document.getElementById('modal-overlay');
+    const modalCourseName = document.getElementById('modal-course-name');
+    const closeBtn = document.getElementById('modal-close-btn');
+    const form = document.getElementById('enrollment-form');
+    const formState = document.getElementById('form-state');
+    const successState = document.getElementById('success-state');
+
+    document.querySelectorAll('.enroll-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const courseName = btn.dataset.course;
+        const price = btn.dataset.price;
+        modalCourseName.textContent = `Курс: ${courseName} · ₽${Number(price).toLocaleString('ru')}`;
+        overlay.classList.add('open');
+        formState.style.display = '';
+        successState.classList.remove('visible');
+        form.reset();
+        document.getElementById('f-name').focus();
+      });
+    });
+
+    closeBtn.addEventListener('click', () => overlay.classList.remove('open'));
+    overlay.addEventListener('click', (e) => { if (e.target === overlay) overlay.classList.remove('open'); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') overlay.classList.remove('open'); });
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('form-submit-btn');
+      btn.textContent = '⏳ Отправка...';
+      btn.disabled = true;
+
+      setTimeout(() => {
+        formState.style.display = 'none';
+        successState.classList.add('visible');
+        setTimeout(() => overlay.classList.remove('open'), 3000);
+      }, 1200);
+    });
+  </script>
+</body>
+</html>

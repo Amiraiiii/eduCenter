@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты — EduCenter | Свяжитесь с нами</title>
+  <meta name="description" content="Свяжитесь с EduCenter: +7 (800) 123-45-67, info@educenter.ru. Москва, ул. Арбат 1. Запишитесь на бесплатную консультацию.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="nav-logo" id="logo-link">
+        <div class="nav-logo-icon">E</div>
+        <span class="nav-logo-text">Edu<span>Center</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="courses.html"  class="nav-link" id="nav-courses">Курсы</a></li>
+        <li><a href="about.html"    class="nav-link" id="nav-about">О нас</a></li>
+        <li><a href="contacts.html" class="nav-link active" id="nav-contacts">Контакты</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="courses.html" class="nav-cta" id="nav-cta">Записаться</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger-btn" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Nav -->
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="courses.html"  class="nav-link" id="mob-courses">Курсы</a>
+    <a href="about.html"    class="nav-link" id="mob-about">О нас</a>
+    <a href="contacts.html" class="nav-link" id="mob-contacts">Контакты</a>
+    <div class="mobile-nav-actions">
+      <a href="courses.html" class="btn btn-primary" id="mob-cta">Записаться</a>
+    </div>
+  </div>
+
+  <!-- ========================
+       PAGE HERO
+       ======================== -->
+  <section class="page-hero">
+    <div class="container">
+      <div class="page-hero-content">
+        <nav class="breadcrumb" aria-label="Хлебные крошки">
+          <a href="../index.html" id="bc-home">Главная</a>
+          <span class="sep">›</span>
+          <span class="current">Контакты</span>
+        </nav>
+        <span class="section-tag">📞 Контакты</span>
+        <h1 class="page-hero-title">Свяжитесь с <span class="gradient-text">нами</span></h1>
+        <p class="page-hero-sub">Ответим в течение часа в рабочее время. Бесплатная консультация по выбору курса.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========================
+       CONTACTS MAIN
+       ======================== -->
+  <main>
+    <div class="container">
+      <div class="contacts-grid">
+
+        <!-- ── Contact Form ── -->
+        <div class="glass-card contact-form-card reveal" id="contact-form-card">
+          <h2 style="font-size:24px;font-weight:700;margin-bottom:6px;font-family:var(--font-display);">Оставить заявку</h2>
+          <p style="font-size:14px;color:var(--text-secondary);margin-bottom:28px;">Заполните форму — менеджер перезвонит в течение часа</p>
+
+          <form id="contact-form" novalidate>
+            <div class="form-group">
+              <label class="form-label" for="c-name">Ваше имя *</label>
+              <input class="form-input" type="text" id="c-name" name="name" placeholder="Иван Иванов" required autocomplete="name">
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+              <div class="form-group">
+                <label class="form-label" for="c-phone">Телефон *</label>
+                <input class="form-input" type="tel" id="c-phone" name="phone" placeholder="+7 (999) 000-00-00" required autocomplete="tel">
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="c-email">Email</label>
+                <input class="form-input" type="email" id="c-email" name="email" placeholder="ivan@mail.ru" autocomplete="email">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="c-course">Интересующий курс</label>
+              <select class="form-input form-select" id="c-course" name="course">
+                <option value="">— Выберите направление —</option>
+                <option value="fullstack">Full Stack Web Developer</option>
+                <option value="uiux">UI/UX Design Pro</option>
+                <option value="data">Data Science & ML</option>
+                <option value="mobile">Mobile Developer</option>
+                <option value="marketing">Digital Marketing</option>
+                <option value="security">Кибербезопасность</option>
+                <option value="other">Другое / Не знаю</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="c-format">Формат обучения</label>
+              <select class="form-input form-select" id="c-format" name="format">
+                <option value="online">🌐 Онлайн</option>
+                <option value="offline">🏢 Офлайн (Москва)</option>
+                <option value="hybrid">🔄 Гибридный</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="c-message">Сообщение</label>
+              <textarea class="form-input" id="c-message" name="message" rows="3" placeholder="Ваш вопрос или комментарий..." style="resize:vertical;"></textarea>
+            </div>
+
+            <!-- Success Banner (inline) -->
+            <div id="form-success-banner" style="display:none;padding:16px 20px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.3);border-radius:var(--r-sm);margin-bottom:16px;font-size:14px;color:#6ee7b7;">
+              ✅ Заявка отправлена! Мы свяжемся с вами в течение часа.
+            </div>
+
+            <button type="submit" class="form-submit" id="contact-form-submit">
+              🚀 Отправить заявку
+            </button>
+
+            <p style="font-size:12px;color:var(--text-muted);margin-top:14px;line-height:1.6;">
+              Нажимая кнопку, вы соглашаетесь с <a href="#" style="color:var(--purple-light);">политикой конфиденциальности</a>
+            </p>
+          </form>
+        </div>
+
+        <!-- ── Right Column ── -->
+        <div>
+          <!-- Contact Info Cards -->
+          <div class="contact-info-grid reveal" id="contact-info-grid">
+
+            <div class="glass-card contact-info-item" id="contact-phone">
+              <div class="contact-info-icon" style="background:var(--purple-dim);border:1px solid rgba(124,58,237,0.25);">📞</div>
+              <div>
+                <div class="contact-info-label">Телефон</div>
+                <div class="contact-info-value">
+                  <a href="tel:+78001234567">+7 (800) 123-45-67</a><br>
+                  <span style="font-size:12px;color:var(--text-muted);">Бесплатно по России</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card contact-info-item" id="contact-email">
+              <div class="contact-info-icon" style="background:var(--cyan-dim);border:1px solid rgba(6,182,212,0.25);">✉️</div>
+              <div>
+                <div class="contact-info-label">Email</div>
+                <div class="contact-info-value">
+                  <a href="mailto:info@educenter.ru">info@educenter.ru</a><br>
+                  <a href="mailto:jobs@educenter.ru" style="font-size:12px;color:var(--text-muted);">jobs@educenter.ru</a>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card contact-info-item" id="contact-address">
+              <div class="contact-info-icon" style="background:var(--pink-dim);border:1px solid rgba(236,72,153,0.25);">📍</div>
+              <div>
+                <div class="contact-info-label">Адрес</div>
+                <div class="contact-info-value">
+                  Москва, ул. Арбат, 1<br>
+                  <span style="font-size:12px;color:var(--text-muted);">2 мин. от м. Арбатская</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass-card contact-info-item" id="contact-hours">
+              <div class="contact-info-icon" style="background:var(--green-dim);border:1px solid rgba(16,185,129,0.25);">⏰</div>
+              <div>
+                <div class="contact-info-label">Режим работы</div>
+                <div class="contact-info-value">
+                  Пн–Пт: 9:00 — 20:00<br>
+                  Сб: 10:00 — 18:00
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Map -->
+          <div class="map-placeholder reveal" id="map-block">
+            <div class="map-placeholder-icon">🗺️</div>
+            <div style="font-size:16px;font-weight:600;font-family:var(--font-display);">Москва, ул. Арбат, 1</div>
+            <div style="font-size:13px;color:var(--text-muted);margin-top:6px;">2 минуты пешком от м. Арбатская</div>
+            <a href="https://maps.google.com/?q=Москва,+Арбат+1" target="_blank" rel="noopener"
+               style="margin-top:12px;padding:9px 20px;background:var(--purple-dim);border:1px solid rgba(124,58,237,0.3);border-radius:var(--r-sm);font-size:13px;color:var(--purple-light);transition:all var(--dur-fast);"
+               onmouseover="this.style.background='rgba(124,58,237,0.28)'"
+               onmouseout="this.style.background='var(--purple-dim)'"
+               id="map-link">
+              Открыть в Google Maps →
+            </a>
+          </div>
+
+          <!-- Social Links -->
+          <div class="reveal" id="social-links-block">
+            <h3 style="font-size:15px;font-weight:700;margin-bottom:16px;font-family:var(--font-display);">Мы в социальных сетях</h3>
+            <div class="social-links-grid">
+              <a href="#" class="glass-card social-link-card" id="social-tg" style="background:rgba(0,136,204,0.06);border-color:rgba(0,136,204,0.15);">
+                <span class="social-link-icon">✈️</span>
+                <div>
+                  <div class="social-link-name">Telegram</div>
+                  <div class="social-link-handle">@educenter_ru</div>
+                </div>
+              </a>
+              <a href="#" class="glass-card social-link-card" id="social-vk" style="background:rgba(0,119,255,0.05);border-color:rgba(0,119,255,0.15);">
+                <span class="social-link-icon">💙</span>
+                <div>
+                  <div class="social-link-name">ВКонтакте</div>
+                  <div class="social-link-handle">vk.com/educenter</div>
+                </div>
+              </a>
+              <a href="#" class="glass-card social-link-card" id="social-yt" style="background:rgba(255,0,0,0.05);border-color:rgba(255,0,0,0.12);">
+                <span class="social-link-icon">▶️</span>
+                <div>
+                  <div class="social-link-name">YouTube</div>
+                  <div class="social-link-handle">EduCenter Official</div>
+                </div>
+              </a>
+              <a href="#" class="glass-card social-link-card" id="social-gh" style="background:rgba(255,255,255,0.03);border-color:rgba(255,255,255,0.08);">
+                <span class="social-link-icon">🐙</span>
+                <div>
+                  <div class="social-link-name">GitHub</div>
+                  <div class="social-link-handle">github.com/educenter</div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ========================
+         FAQ SECTION
+         ======================== -->
+    <div class="container" style="padding-bottom: 100px;">
+      <div class="section-header reveal">
+        <span class="section-tag">❓ FAQ</span>
+        <h2 class="section-title">Часто задаваемые <span class="gradient-text">вопросы</span></h2>
+        <p class="section-subtitle">Отвечаем на самые популярные вопросы</p>
+      </div>
+
+      <div class="faq-list">
+
+        <div class="faq-item" id="faq-1">
+          <div class="faq-question">
+            Нужен ли опыт программирования для поступления?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Нет, большинство наших курсов разработаны для начинающих. Вам достаточно уверенно пользоваться компьютером.
+              Для курсов уровня «Средний» (Data Science, Кибербезопасность) желательно базовое понимание программирования.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-2">
+          <div class="faq-question">
+            Есть ли рассрочка на оплату?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Да, мы предоставляем беспроцентную рассрочку на 6 и 12 месяцев. Также доступна оплата через Тинькофф Кредит
+              без первоначального взноса. Студентам предоставляется скидка 15%.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-3">
+          <div class="faq-question">
+            Помогаете ли вы с трудоустройством после обучения?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Да, это наш главный приоритет. 94% выпускников трудоустраиваются в течение 3 месяцев после окончания курса.
+              Мы помогаем: составить резюме и портфолио, подготовиться к техническим собеседованиям, найти вакансии
+              через нашу партнёрскую сеть из 200+ компаний.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-4">
+          <div class="faq-question">
+            Можно ли совмещать обучение с работой?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Конечно! Мы предлагаем вечерние (19:00–22:00) и выходные группы специально для работающих людей.
+              Все занятия записываются — если пропустили, можно посмотреть запись в удобное время.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-5">
+          <div class="faq-question">
+            Что если курс не понравится или окажется слишком сложным?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              В течение первых 2 недель вы можете перейти на другой курс или получить полный возврат средств — без
+              вопросов и штрафов. Мы заинтересованы в вашем успехе, поэтому не удерживаем деньги.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item" id="faq-6">
+          <div class="faq-question">
+            Выдаёте ли вы сертификаты?
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <div class="faq-answer-inner">
+              Да! Каждый выпускник получает именной сертификат EduCenter с QR-кодом для верификации работодателями.
+              Для ряда курсов также готовим к международным сертификациям: Google Ads, CompTIA, CEH.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2024 EduCenter. Все права защищены.</span>
+        <div style="display:flex;gap:20px;flex-wrap:wrap;">
+          <a href="../index.html" class="footer-link" id="footer-home">Главная</a>
+          <a href="courses.html"  class="footer-link" id="footer-courses">Курсы</a>
+          <a href="about.html"    class="footer-link" id="footer-about">О нас</a>
+          <a href="#" class="footer-link" id="footer-privacy">Политика конфиденциальности</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AI ASSISTANT -->
+  <button class="ai-float-btn" id="ai-float-btn" aria-label="AI-ассистент EduCenter">
+    <svg viewBox="0 0 24 24" fill="white" width="26" height="26">
+      <path d="M12 1L9.5 8H2l6 4.5L5.5 20 12 16l6.5 4L16 12.5 22 8h-7.5L12 1z"/>
+    </svg>
+  </button>
+
+  <div class="ai-chat-widget hidden" id="ai-chat-widget" role="dialog" aria-label="AI-ассистент">
+    <div class="ai-chat-header">
+      <div class="ai-avatar">🤖</div>
+      <div class="ai-info">
+        <div class="ai-name">EduAI Ассистент</div>
+        <div class="ai-status">Онлайн — готов помочь</div>
+      </div>
+      <button class="ai-chat-close" id="ai-chat-close" aria-label="Закрыть">✕</button>
+    </div>
+    <div class="ai-api-key-area" id="ai-api-key-area">
+      <div class="ai-api-key-label">🔑 Gemini API Key</div>
+      <input type="password" id="ai-api-key-input" class="ai-api-key-input" placeholder="AIza...">
+    </div>
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="ai-msg ai-msg-bot" id="ai-greeting">
+        <div class="ai-msg-avatar">🤖</div>
+        <div class="ai-msg-bubble">
+          Привет! 👋 Могу ответить на любые вопросы об обучении, курсах и записи.<br>
+          Или заполните форму справа — мы перезвоним!
+        </div>
+      </div>
+    </div>
+    <div class="ai-quick-replies" id="ai-quick-replies">
+      <button class="ai-quick-reply" id="qr-courses">Какие курсы есть?</button>
+      <button class="ai-quick-reply" id="qr-price">Цены и рассрочка</button>
+      <button class="ai-quick-reply" id="qr-jobs">Трудоустройство</button>
+    </div>
+    <div class="ai-chat-input-area">
+      <textarea id="ai-input" placeholder="Ваш вопрос..." rows="1" aria-label="Сообщение"></textarea>
+      <button class="ai-send-btn" id="ai-send-btn" aria-label="Отправить">➤</button>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/ai-assistant.js"></script>
+  <script>
+    // Contact Form Submit
+    const form = document.getElementById('contact-form');
+    const submitBtn = document.getElementById('contact-form-submit');
+    const banner = document.getElementById('form-success-banner');
+
+    form?.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('c-name').value.trim();
+      const phone = document.getElementById('c-phone').value.trim();
+
+      if (!name || !phone) {
+        const empty = !name
+          ? document.getElementById('c-name')
+          : document.getElementById('c-phone');
+        empty.style.borderColor = 'rgba(239,68,68,0.6)';
+        empty.focus();
+        setTimeout(() => (empty.style.borderColor = ''), 2000);
+        return;
+      }
+
+      submitBtn.textContent = '⏳ Отправка...';
+      submitBtn.disabled = true;
+
+      setTimeout(() => {
+        banner.style.display = 'block';
+        form.reset();
+        submitBtn.textContent = '✅ Заявка отправлена!';
+        submitBtn.style.background = 'var(--grad-green)';
+        setTimeout(() => {
+          submitBtn.textContent = '🚀 Отправить заявку';
+          submitBtn.disabled = false;
+          submitBtn.style.background = '';
+          banner.style.display = 'none';
+        }, 5000);
+      }, 1400);
+    });
+
+    // Phone mask
+    const phoneInput = document.getElementById('c-phone');
+    phoneInput?.addEventListener('input', () => {
+      let v = phoneInput.value.replace(/\D/g, '');
+      if (v.startsWith('8')) v = '7' + v.slice(1);
+      if (v.length > 0) {
+        let f = '+7';
+        if (v.length > 1) f += ' (' + v.slice(1, 4);
+        if (v.length >= 4) f += ') ' + v.slice(4, 7);
+        if (v.length >= 7) f += '-' + v.slice(7, 9);
+        if (v.length >= 9) f += '-' + v.slice(9, 11);
+        phoneInput.value = f;
+      }
+    });
+  </script>
+</body>
+</html>

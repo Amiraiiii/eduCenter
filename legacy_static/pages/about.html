@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>О нас — EduCenter | История, миссия, команда</title>
+  <meta name="description" content="EduCenter — учебный центр нового поколения. Узнайте о нашей истории, миссии, преподавателях и партнёрах. С 2018 года обучаем IT-специалистов.">
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/pages.css">
+  <style>
+    /* ── About Page ── */
+    .about-hero {
+      padding: 140px 0 100px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      right: -100px;
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(circle, rgba(6,182,212,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .about-hero-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .about-hero-tag { margin-bottom: 16px; }
+
+    .about-hero-title {
+      font-size: clamp(36px, 5vw, 60px);
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .about-hero-text {
+      font-size: 17px;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 32px;
+    }
+
+    .about-hero-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .about-hero-stat {
+      padding: 20px;
+      text-align: center;
+    }
+
+    .about-hero-stat-num {
+      font-size: 36px;
+      font-weight: 800;
+      font-family: var(--font-display);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .about-hero-stat-label {
+      font-size: 13px;
+      color: var(--text-secondary);
+    }
+
+    /* Right visual */
+    .about-visual {
+      position: relative;
+      height: 460px;
+    }
+
+    .about-visual-card {
+      position: absolute;
+      padding: 20px 24px;
+      min-width: 220px;
+    }
+
+    .about-visual-card-1 { top: 0; left: 0; }
+    .about-visual-card-2 { top: 120px; right: 0; }
+    .about-visual-card-3 { bottom: 60px; left: 60px; }
+
+    .avc-icon { font-size: 28px; margin-bottom: 8px; }
+    .avc-title { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .avc-sub { font-size: 13px; color: var(--text-secondary); }
+
+    /* Timeline */
+    .timeline-section { padding: var(--section-py) 0; }
+
+    .timeline {
+      position: relative;
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, var(--accent-purple), var(--accent-cyan));
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 1fr 48px 1fr;
+      gap: 24px;
+      margin-bottom: 48px;
+      align-items: center;
+    }
+
+    .timeline-item:nth-child(odd) .timeline-content { grid-column: 1; text-align: right; }
+    .timeline-item:nth-child(odd) .timeline-dot { grid-column: 2; }
+    .timeline-item:nth-child(odd) .timeline-empty { grid-column: 3; }
+
+    .timeline-item:nth-child(even) .timeline-empty { grid-column: 1; }
+    .timeline-item:nth-child(even) .timeline-dot { grid-column: 2; }
+    .timeline-item:nth-child(even) .timeline-content { grid-column: 3; text-align: left; }
+
+    .timeline-dot {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--gradient-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 0 24px rgba(124,58,237,0.4);
+      z-index: 1;
+    }
+
+    .timeline-content {
+      padding: 20px 24px;
+    }
+
+    .timeline-year {
+      font-size: 13px;
+      color: var(--accent-purple);
+      font-weight: 600;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .timeline-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-family: var(--font-display);
+    }
+
+    .timeline-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Values Section */
+    .values-section { padding: var(--section-py) 0; }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .value-card {
+      padding: 32px;
+      text-align: center;
+    }
+
+    .value-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .value-title {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      font-family: var(--font-display);
+    }
+
+    .value-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* Partners */
+    .partners-section {
+      padding: 80px 0;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .partners-title {
+      text-align: center;
+      font-size: 15px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 40px;
+    }
+
+    .partners-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .partner-logo {
+      padding: 16px 28px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      transition: all var(--transition-fast);
+      cursor: default;
+    }
+
+    .partner-logo:hover {
+      background: rgba(124,58,237,0.08);
+      border-color: rgba(124,58,237,0.2);
+      color: var(--text-secondary);
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .about-hero-inner { grid-template-columns: 1fr; gap: 40px; }
+      .about-visual { height: 300px; }
+      .values-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+      .timeline::before { left: 24px; }
+      .timeline-item {
+        grid-template-columns: 48px 1fr;
+        grid-template-rows: auto;
+      }
+      .timeline-item:nth-child(odd) .timeline-content,
+      .timeline-item:nth-child(even) .timeline-content {
+        grid-column: 2; grid-row: 1; text-align: left;
+      }
+      .timeline-item:nth-child(odd) .timeline-dot,
+      .timeline-item:nth-child(even) .timeline-dot {
+        grid-column: 1; grid-row: 1;
+      }
+      .timeline-empty { display: none; }
+      .values-grid { grid-template-columns: 1fr; }
+      .about-visual { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar scrolled" id="navbar">
+    <div class="navbar-inner">
+      <a href="../index.html" class="nav-logo" id="footer-logo">
+        <div class="nav-logo-icon">E</div>
+        <span class="nav-logo-text">Edu<span>Center</span></span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="courses.html" class="nav-link" id="nav-courses">Курсы</a></li>
+        <li><a href="about.html" class="nav-link active" id="nav-about">О нас</a></li>
+        <li><a href="contacts.html" class="nav-link" id="nav-contacts">Контакты</a></li>
+      </ul>
+      <div class="nav-actions">
+        <a href="courses.html" class="nav-cta" id="nav-cta">Записаться</a>
+      </div>
+      <button class="nav-hamburger" id="hamburger-btn" aria-label="Меню">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section style="padding: 0;">
+    <div class="container">
+      <div class="about-hero-inner">
+        <div class="about-left">
+          <span class="section-tag about-hero-tag">🏆 О компании</span>
+          <h1 class="about-hero-title">
+            Строим <span class="gradient-text">IT-будущее</span><br>с 2018 года
+          </h1>
+          <p class="about-hero-text">
+            EduCenter — это место, где мечты о карьере в IT становятся реальностью.
+            Мы верим, что у каждого есть потенциал стать отличным специалистом.
+            Наша задача — дать вам правильный старт и поддержку на всём пути.
+          </p>
+          <div class="about-hero-stats">
+            <div class="glass-card about-hero-stat reveal">
+              <div class="about-hero-stat-num gradient-text">6+</div>
+              <div class="about-hero-stat-label">Лет на рынке</div>
+            </div>
+            <div class="glass-card about-hero-stat reveal">
+              <div class="about-hero-stat-num gradient-text">15K+</div>
+              <div class="about-hero-stat-label">Выпускников</div>
+            </div>
+            <div class="glass-card about-hero-stat reveal">
+              <div class="about-hero-stat-num gradient-text">120+</div>
+              <div class="about-hero-stat-label">Преподавателей</div>
+            </div>
+            <div class="glass-card about-hero-stat reveal">
+              <div class="about-hero-stat-num gradient-text">94%</div>
+              <div class="about-hero-stat-label">Трудоустройство</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Visual -->
+        <div class="about-visual">
+          <div class="glass-card avc avc-1">
+            <div class="avc-icon">🎓</div>
+            <div class="avc-title">Дипломы и сертификаты</div>
+            <div class="avc-sub">Признаются работодателями по всей России</div>
+          </div>
+          <div class="glass-card avc avc-2">
+            <div class="avc-icon">🤝</div>
+            <div class="avc-title">Партнёрская сеть</div>
+            <div class="avc-sub">200+ компаний ждут наших выпускников</div>
+          </div>
+          <div class="glass-card avc avc-3">
+            <div class="avc-icon">🚀</div>
+            <div class="avc-title">Гарантия трудоустройства</div>
+            <div class="avc-sub">Или вернём деньги за обучение</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HISTORY TIMELINE -->
+  <section class="timeline-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">📅 История</span>
+        <h2 class="section-title">Наш <span class="gradient-text">путь</span></h2>
+        <p class="section-subtitle">Как мы стали ведущим учебным центром региона</p>
+      </div>
+
+      <div class="timeline">
+        <div class="timeline-item reveal">
+          <div class="glass-card timeline-content">
+            <div class="timeline-year">2018</div>
+            <div class="timeline-title">Основание EduCenter</div>
+            <div class="timeline-desc">Открыли первый офис в Москве с 3 курсами и 50 студентами. Начали с веб-разработки и дизайна.</div>
+          </div>
+          <div class="timeline-dot">🌱</div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot">📈</div>
+          <div class="glass-card timeline-content">
+            <div class="timeline-year">2019</div>
+            <div class="timeline-title">Расширение программ</div>
+            <div class="timeline-desc">Добавили Data Science и Digital Marketing. 500+ студентов. Первые 200 трудоустроенных выпускников.</div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="glass-card timeline-content">
+            <div class="timeline-year">2020</div>
+            <div class="timeline-title">Переход в онлайн</div>
+            <div class="timeline-desc">Запустили полноценную онлайн-платформу. Расширили аудиторию по всей России. 2000+ студентов.</div>
+          </div>
+          <div class="timeline-dot">🌐</div>
+          <div class="timeline-empty"></div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="timeline-empty"></div>
+          <div class="timeline-dot">🏆</div>
+          <div class="glass-card timeline-content">
+            <div class="timeline-year">2022</div>
+            <div class="timeline-title">Лидер рынка</div>
+            <div class="timeline-desc">Вошли в топ-5 IT-школ России. Открыли офисы в Петербурге и Екатеринбурге. 8000+ выпускников.</div>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="glass-card timeline-content">
+            <div class="timeline-year">2024</div>
+            <div class="timeline-title">AI & новые горизонты</div>
+            <div class="timeline-desc">Запустили AI-ассистента для студентов, добавили курсы по кибербезопасности и LLM. 15000+ выпускников.</div>
+          </div>
+          <div class="timeline-dot">🤖</div>
+          <div class="timeline-empty"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="values-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">💡 Наши принципы</span>
+        <h2 class="section-title">Что нас <span class="gradient-text">отличает</span></h2>
+      </div>
+      <div class="values-grid">
+        <div class="glass-card value-card reveal">
+          <span class="value-icon">🎯</span>
+          <div class="value-title">Практика, а не теория</div>
+          <p class="value-desc">80% времени — реальные проекты. Вы выходите со знаниями, которые сразу применяете на работе.</p>
+        </div>
+        <div class="glass-card value-card reveal">
+          <span class="value-icon">👨‍🏫</span>
+          <div class="value-title">Опытные преподаватели</div>
+          <p class="value-desc">Только практикующие специалисты. Никаких теоретиков — только люди с реальным опытом в индустрии.</p>
+        </div>
+        <div class="glass-card value-card reveal">
+          <span class="value-icon">💼</span>
+          <div class="value-title">Карьерная поддержка</div>
+          <p class="value-desc">Помогаем с резюме, портфолио и подготовкой к собеседованиям. 94% выпускников трудоустраиваются.</p>
+        </div>
+        <div class="glass-card value-card reveal">
+          <span class="value-icon">🤝</span>
+          <div class="value-title">Сообщество</div>
+          <p class="value-desc">Закрытый Telegram-чат выпускников. Нетворкинг, вакансии, ивенты и взаимопомощь.</p>
+        </div>
+        <div class="glass-card value-card reveal">
+          <span class="value-icon">🔄</span>
+          <div class="value-title">Гибкий формат</div>
+          <p class="value-desc">Онлайн, офлайн или гибрид. Утренние, вечерние и выходные группы. Учись в удобное время.</p>
+        </div>
+        <div class="glass-card value-card reveal">
+          <span class="value-icon">💳</span>
+          <div class="value-title">Доступные цены</div>
+          <p class="value-desc">Рассрочка без переплат на 12 месяцев. Скидки для студентов. Гарантия возврата денег.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PARTNERS -->
+  <section class="partners-section">
+    <div class="container">
+      <div class="partners-title">Наши партнёры и работодатели</div>
+      <div class="partners-row">
+        <div class="partner-logo">YANDEX</div>
+        <div class="partner-logo">SBER</div>
+        <div class="partner-logo">VK</div>
+        <div class="partner-logo">OZON</div>
+        <div class="partner-logo">AVITO</div>
+        <div class="partner-logo">TINKOFF</div>
+        <div class="partner-logo">MTS</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-inner reveal">
+        <h2 class="cta-title">Стань частью <span class="gradient-text">EduCenter</span></h2>
+        <p class="cta-subtitle">Начни своё путешествие в IT уже сегодня</p>
+        <div class="cta-actions">
+          <a href="courses.html" class="btn btn-primary btn-lg" id="cta-courses-btn">📚 Выбрать курс</a>
+          <a href="contacts.html" class="btn btn-outline btn-lg" id="cta-contact-btn">✉️ Связаться с нами</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom">
+        <span>© 2024 EduCenter. Все права защищены.</span>
+        <div style="display:flex;gap:20px;">
+          <a href="../index.html" class="footer-link">Главная</a>
+          <a href="courses.html" class="footer-link">Курсы</a>
+          <a href="contacts.html" class="footer-link">Контакты</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AI -->
+  <button class="ai-float-btn" id="ai-float-btn" aria-label="AI-ассистент">
+    <svg viewBox="0 0 24 24" fill="white"><path d="M12 1L9.5 8H2l6 4.5L5.5 20 12 16l6.5 4L16 12.5 22 8h-7.5L12 1z"/></svg>
+  </button>
+  <div class="ai-chat-widget hidden" id="ai-chat-widget">
+    <div class="ai-chat-header">
+      <div class="ai-avatar">🤖</div>
+      <div class="ai-info">
+        <div class="ai-name">EduAI Ассистент</div>
+        <div class="ai-status">Онлайн</div>
+      </div>
+      <button class="ai-chat-close" id="ai-chat-close">✕</button>
+    </div>
+    <div class="ai-api-key-area" id="ai-api-key-area">
+      <div class="ai-api-key-label">🔑 Gemini API Key</div>
+      <input type="password" id="ai-api-key-input" class="ai-api-key-input" placeholder="AIza...">
+    </div>
+    <div class="ai-chat-messages" id="ai-chat-messages">
+      <div class="ai-msg ai-msg-bot">
+        <div class="ai-msg-avatar">🤖</div>
+        <div class="ai-msg-bubble">Привет! Хотите узнать больше о EduCenter или выбрать курс?</div>
+      </div>
+    </div>
+    <div class="ai-quick-replies" id="ai-quick-replies">
+      <button class="ai-quick-reply" id="qr-courses">Какие курсы есть?</button>
+      <button class="ai-quick-reply" id="qr-enroll">Как записаться?</button>
+    </div>
+    <div class="ai-chat-input-area">
+      <textarea id="ai-input" placeholder="Ваш вопрос..." rows="1"></textarea>
+      <button class="ai-send-btn" id="ai-send-btn">➤</button>
+    </div>
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script src="../js/ai-assistant.js"></script>
+</body>
+</html>

@@ -1,0 +1,129 @@
+# 📋 EduCenter — Tasks & Implementation Plan
+
+> Учебный центр на подобии ProWeb, IT-Step, Tehnikum, Coding
+> Стек: **Next.js 16 (App Router) + React 19 + TypeScript + Tailwind CSS v4 + Turbopack**
+> Дизайн: Тёмный минималистичный (стандарты `unslop`) | AI-ассистент с RAG через Gemini API
+
+---
+
+## ✅ ЭТАП 1: Миграция на Next.js + Tailwind CSS v4
+**Статус:** ✅ Завершён
+
+- [x] Инициализация Next.js с App Router, TypeScript, Tailwind CSS v4 и ESLint
+- [x] Настройка темы в `globals.css` (тёмный графитовый neutral ramp, glassmorphism, accent glow)
+- [x] Создание структуры каталога курсов (`src/data/courses.ts`)
+- [x] Создание RAG базы знаний (`src/data/ragKnowledge.ts` + `rag-data/courses.md` + `rag-data/faq.md`)
+- [x] Разработка API маршрута `/api/chat` для AI-консультанта (Google Gemini API + RAG)
+- [x] Компоненты UI (`Navbar`, `Footer`, `HeroCanvas`, `AiAssistant`, `ApplicationModal`)
+- [x] Страницы App Router (`/`, `/courses`, `/about`, `/contacts`)
+
+---
+
+## ✅ ЭТАП 2: Устранение заглушек, багфикс и интеграция бэкенда заявок
+**Статус:** ✅ Завершён
+
+- [x] **Реальный API маршрут заявок (`/api/apply`):**
+  - Серверная валидация (имя, номер телефона).
+  - Интеграция с Telegram Bot API (отправка заявок в чат менеджеров при наличии `TELEGRAM_BOT_TOKEN` и `TELEGRAM_CHAT_ID`).
+  - Генерация уникального ID заявки (`#ED-XXXXXX`) и логирование.
+- [x] **Устранение заглушек в формах:**
+  - `ApplicationModal.tsx`: удален `setTimeout`, подключен реальный `fetch('/api/apply')`, добавлена обработка ошибок, спиннер и бейдж с номером заявки.
+  - `/contacts/page.tsx`: форма подключена к `/api/apply`, добавлена индикация загрузки, сброс полей и вывод сообщений об ошибках.
+- [x] **Исправление навигации и багов в `Navbar.tsx`:**
+  - Исправлен ошибочный импорт `Link from 'next/navigation'` на `'next/link'`.
+  - Заменены теги `<a>` на `<Link>` для быстрого SPA-перехода без перезагрузки страниц.
+  - Подключено открытие модалки записи при клике на «Записаться» с любой страницы сайта.
+- [x] **Замена заглушки `rag-data/placeholder.md`:**
+  - Удален `placeholder.md`.
+  - Созданы полноценные документы базы знаний: `teachers.md`, `schedule.md`, `pricing.md`, `about.md`, `contacts.md`.
+  - Расширена база знаний `src/data/ragKnowledge.ts` и улучшен локальный поиск RAG в `/api/chat`.
+- [x] **Версионирование и окружение:**
+  - Инициализирован Git-репозиторий (`git init`).
+  - Создан шаблон переменных окружения `.env.example`.
+
+---
+
+## ✅ ЭТАП 3: Детальные страницы курсов и SEO
+**Статус:** ✅ Завершён
+
+- [x] **Динамические маршруты `src/app/courses/[slug]/page.tsx`:**
+  - Созданы индивидуальные страницы для всех курсов (`/courses/frontend-react`, `/courses/python-ai`, `/courses/ui-ux-design`, `/courses/backend-golang`, `/courses/qa-automation`).
+  - Статическая генерация страниц (`generateStaticParams`).
+  - Динамические SEO-метатеги (`generateMetadata`).
+- [x] **Компонент записи на курс (`CourseEnrollCard.tsx`):**
+  - Интерактивный расчет стоимости (в рассрочку и со скидкой 10% разово).
+  - Выбор формата (офлайн в Ташкенте / онлайн).
+  - Прямая отправка заявки на конкретный курс через `/api/apply`.
+- [x] **Перелинковка:**
+  - Заголовки и карточки курсов на главной и на `/courses` теперь ведут на персональные страницы.
+
+---
+
+## 🚀 СЛЕДУЮЩИЕ ЭТАПЫ (Roadmap):
+
+### 📌 Этап 4: Интерактивный профориентационный тест (Quiz)
+- [ ] Квиз для абитуриентов «Подбери идеальную IT-профессию за 2 минуты» (5 вопросов).
+- [ ] Автоматический переход к AI-ассистенту с предзаполненным результатом теста.
+
+### 📌 Этап 5: Мультиязычность (i18n: RU / UZ / EN)
+- [ ] Добавление узбекской версии интерфейса (O'zbek tili) и переключателя языков в `Navbar`.
+
+### 📌 Этап 6: Деплой на продакшн
+- [ ] Настройка переменных окружения на хостинге (Vercel / VPS).
+- [ ] Проверка Lighthouse (Performance 95+, Accessibility 100, SEO 100).
+
+---
+
+### Архитектура проекта:
+```
+d:\Amira\site\
+├── src/
+│   ├── app/
+│   │   ├── page.tsx               # Главная страница
+│   │   ├── layout.tsx             # Корневой лэйаут с Navbar, Footer, AiAssistant
+│   │   ├── globals.css            # Tailwind v4 стили и переменные
+│   │   ├── courses/
+│   │   │   ├── page.tsx           # Каталог всех курсов с поиском и фильтрами
+│   │   │   └── [slug]/
+│   │   │       ├── page.tsx       # Индивидуальная страница курса (SSG)
+│   │   │       └── CourseEnrollCard.tsx # Форма записи на выбранный курс
+│   │   ├── about/page.tsx         # О нас, менторы, таймлайн развития
+│   │   ├── contacts/page.tsx      # Контакты, форма записи, FAQ
+│   │   └── api/
+│   │       ├── chat/route.ts      # API ассистента с Gemini & RAG
+│   │       └── apply/route.ts     # API приема заявок + Telegram уведомления
+│   ├── components/
+│   │   ├── Navbar.tsx             # Адаптивное меню + встроенная модалка
+│   │   ├── Footer.tsx             # Футер с реквизитами
+│   │   ├── HeroCanvas.tsx         # Частицы в Hero
+│   │   ├── AiAssistant.tsx        # Плавающий чат-виджет RAG
+│   │   └── ApplicationModal.tsx   # Модальное окно заявки с реальным API
+│   └── data/
+│       ├── courses.ts             # Данные всех курсов
+│       └── ragKnowledge.ts        # Полная база знаний RAG
+├── rag-data/                      # Исходные MD-файлы базы знаний
+│   ├── courses.md
+│   ├── faq.md
+│   ├── teachers.md
+│   ├── schedule.md
+│   ├── pricing.md
+│   ├── about.md
+│   └── contacts.md
+├── .env.example                   # Шаблон переменных окружения
+├── package.json
+└── tasks.md                       # Этот файл
+```
+
+---
+
+## 📝 Журнал изменений
+
+| Дата | Этап | Действие |
+|------|------|---------|
+| 2026-11-02 | Инициализация | Создание структуры, tasks.md, CLAUDE.md |
+| 2026-11-02 | Скиллы | Подключен скилл `unslop` в `.agents/skills/unslop` |
+| 2026-11-02 | Рефакторинг | Полная перепись на Next.js (App Router) + Tailwind CSS v4 + TypeScript |
+| 2026-11-09 | Багфикс & API | Создан `/api/apply`, убран `setTimeout`, подключен Telegram-бот, исправлен `Navbar` Link |
+| 2026-11-09 | RAG & Docs | Заменен `placeholder.md` на 5 детальных MD-файлов базы знаний |
+| 2026-11-09 | Динамические курсы | Созданы страницы `/courses/[slug]` со статической генерацией и формой записи |
+| 2026-11-09 | Git & Env | Инициализирован Git, настроен `.env.example` |
