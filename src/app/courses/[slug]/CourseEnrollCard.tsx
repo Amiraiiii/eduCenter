@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, CheckCircle2, Sparkles, Phone, User, Calendar, ShieldCheck } from 'lucide-react';
+import { Send, CheckCircle2, Phone, User, ShieldCheck } from 'lucide-react';
 import { Course } from '@/data/courses';
 
 interface Props {
@@ -51,143 +51,145 @@ export default function CourseEnrollCard({ course }: Props) {
   };
 
   return (
-    <div className="rounded-3xl bg-[#0e1017] border border-white/[0.08] p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-36 h-36 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
-
+    <div className="inspector-card rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 relative overflow-hidden">
       {/* Pricing header */}
       <div>
-        <span className="text-xs text-zinc-400 block mb-1">Стоимость обучения</span>
-        <div className="text-2xl sm:text-3xl font-extrabold text-white font-mono">
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-xs text-zinc-400 font-tech uppercase tracking-widest">Рассрочка 0%</span>
+          <span className="text-[10px] px-2 py-0.5 rounded bg-white/[0.08] text-zinc-200 font-tech border border-white/20">
+            Без первого взноса
+          </span>
+        </div>
+        <div className="text-2xl sm:text-3xl font-black text-white font-tech tracking-tight">
           {course.monthlyPrice}
         </div>
-        <div className="text-xs text-zinc-400 mt-1">
-          или <strong className="text-cyan-400 font-mono">{course.price}</strong> при полной оплате (-10%)
-        </div>
-        <div className="mt-3 inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-[11px]">
-          <Sparkles className="w-3 h-3" />
-          <span>Рассрочка 0% без переплат на 12 мес</span>
+        <div className="text-xs text-zinc-400 font-tech mt-1">
+          Полная стоимость: {course.price}
         </div>
       </div>
 
-      <div className="pt-2 border-t border-white/[0.06]">
-        {submitted ? (
-          <div className="py-8 text-center space-y-3">
-            <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 mx-auto flex items-center justify-center">
-              <CheckCircle2 className="w-7 h-7" />
+      {/* Course highlights */}
+      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06] space-y-2.5 text-xs text-zinc-300 font-tech">
+        <div className="flex items-center justify-between">
+          <span className="text-zinc-500">Длительность:</span>
+          <span className="font-semibold text-white">{course.duration}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-zinc-500">График:</span>
+          <span className="font-semibold text-white">{course.schedule || '3 раза в неделю по 2 часа'}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-zinc-500">Проектов в резюме:</span>
+          <span className="font-semibold text-white">{course.projectsCount} коммерческих кейса</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span className="text-zinc-500">Ближайший поток:</span>
+          <span className="font-semibold text-zinc-200">{course.nextCohort || 'Весенний набор'}</span>
+        </div>
+      </div>
+
+      {!submitted ? (
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <span className="text-xs font-mono text-zinc-400 uppercase tracking-widest block">
+            Забронировать место в группе:
+          </span>
+
+          {errorMessage && (
+            <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
+              {errorMessage}
             </div>
-            <h4 className="text-lg font-bold text-white">Вы успешно записались!</h4>
-            {leadId && (
-              <span className="inline-block px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono">
-                Заявка #{leadId}
-              </span>
-            )}
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Менеджер свяжется с вами по номеру <span className="text-white font-mono">{phone}</span> для подтверждения бронирования.
-            </p>
+          )}
+
+          <div>
+            <div className="relative">
+              <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+              <input
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="Ваше имя"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white text-xs placeholder:text-zinc-500 focus:outline-none focus:border-white/30 transition-colors"
+              />
+            </div>
+          </div>
+
+          <div>
+            <div className="relative">
+              <Phone className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" />
+              <input
+                type="tel"
+                required
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+                placeholder="+998 90 123 45 67"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white/[0.03] border border-white/[0.08] text-white text-xs placeholder:text-zinc-500 focus:outline-none focus:border-white/30 transition-colors font-mono"
+              />
+            </div>
+          </div>
+
+          {/* Format selector */}
+          <div className="grid grid-cols-2 gap-2">
             <button
-              onClick={() => {
-                setSubmitted(false);
-                setLeadId(null);
-                setName('');
-                setPhone('+998 ');
-              }}
-              className="mt-3 px-5 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-white text-xs font-semibold"
+              type="button"
+              onClick={() => setFormat('offline')}
+              className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all ${
+                format === 'offline'
+                  ? 'bg-white text-zinc-950 border-white shadow-md'
+                  : 'bg-white/[0.03] border-white/[0.06] text-zinc-400 hover:text-white'
+              }`}
             >
-              Записаться повторно
+              Офлайн в кампусе
+            </button>
+            <button
+              type="button"
+              onClick={() => setFormat('online')}
+              className={`py-2 px-3 rounded-xl text-xs font-bold border transition-all ${
+                format === 'online'
+                  ? 'bg-white text-zinc-950 border-white shadow-md'
+                  : 'bg-white/[0.03] border-white/[0.06] text-zinc-400 hover:text-white'
+              }`}
+            >
+              Онлайн с ментором
             </button>
           </div>
-        ) : (
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div className="text-xs font-semibold text-zinc-200">
-              Забронировать место в ближайшей группе:
-            </div>
 
-            {errorMessage && (
-              <div className="p-3 rounded-xl bg-red-500/10 border border-red-500/20 text-red-400 text-xs">
-                {errorMessage}
-              </div>
+          <button
+            type="submit"
+            disabled={loading}
+            className="btn-shimmer w-full py-3.5 rounded-xl bg-white hover:bg-zinc-200 text-zinc-950 font-bold text-xs uppercase tracking-wider transition-all flex items-center justify-center gap-2 shadow-md active:scale-95 disabled:opacity-50"
+          >
+            {loading ? (
+              <div className="w-4 h-4 rounded-full border-2 border-zinc-950 border-t-transparent animate-spin" />
+            ) : (
+              <>
+                <span>Записаться на открытый урок</span>
+                <Send className="w-3.5 h-3.5" />
+              </>
             )}
+          </button>
 
-            <div>
-              <label className="block text-[11px] font-medium text-zinc-400 mb-1">Формат</label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setFormat('offline')}
-                  className={`py-2 px-2.5 rounded-xl border text-xs font-medium transition-all ${
-                    format === 'offline'
-                      ? 'border-cyan-500 bg-cyan-500/10 text-cyan-300'
-                      : 'border-white/10 bg-white/[0.02] text-zinc-400 hover:text-white'
-                  }`}
-                >
-                  🏢 Офлайн (Ташкент)
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setFormat('online')}
-                  className={`py-2 px-2.5 rounded-xl border text-xs font-medium transition-all ${
-                    format === 'online'
-                      ? 'border-cyan-500 bg-cyan-500/10 text-cyan-300'
-                      : 'border-white/10 bg-white/[0.02] text-zinc-400 hover:text-white'
-                  }`}
-                >
-                  🌐 Онлайн
-                </button>
-              </div>
+          <div className="flex items-center justify-center gap-1.5 text-[11px] text-zinc-400 font-tech">
+            <ShieldCheck className="w-3.5 h-3.5 text-white" />
+            <span>Договор с гарантией возврата средств</span>
+          </div>
+        </form>
+      ) : (
+        <div className="py-6 text-center space-y-3 font-tech">
+          <div className="w-12 h-12 rounded-full bg-white/[0.08] border border-white/20 text-white flex items-center justify-center mx-auto">
+            <CheckCircle2 className="w-6 h-6" />
+          </div>
+          <h4 className="font-display text-base font-bold text-white">Место забронировано!</h4>
+          <p className="text-xs text-zinc-400">
+            Мы перезвоним вам в течение 15 минут для подтверждения расписания.
+          </p>
+          {leadId && (
+            <div className="text-[11px] text-zinc-400 pt-1">
+              ID заявки: <span className="text-white font-bold">{leadId}</span>
             </div>
-
-            <div>
-              <label className="block text-[11px] font-medium text-zinc-400 mb-1">Ваше имя</label>
-              <div className="relative">
-                <User className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  required
-                  placeholder="Имя Фамилия"
-                  value={name}
-                  onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 rounded-xl bg-white/[0.04] border border-white/10 focus:border-cyan-500 text-white text-xs outline-none transition-colors"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-[11px] font-medium text-zinc-400 mb-1">Телефон</label>
-              <div className="relative">
-                <Phone className="w-3.5 h-3.5 text-zinc-500 absolute left-3 top-1/2 -translate-y-1/2" />
-                <input
-                  type="tel"
-                  required
-                  placeholder="+998 90 123 45 67"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className="w-full pl-9 pr-3 py-2 rounded-xl bg-white/[0.04] border border-white/10 focus:border-cyan-500 text-white text-xs font-mono outline-none transition-colors"
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 disabled:opacity-50 text-white text-xs font-semibold tracking-wide transition-all shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2"
-            >
-              {loading ? (
-                <span className="inline-block w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-              ) : (
-                <>
-                  <span>Записаться на открытый урок</span>
-                  <Send className="w-3.5 h-3.5" />
-                </>
-              )}
-            </button>
-
-            <div className="pt-2 flex items-center justify-center gap-2 text-[11px] text-zinc-500">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-              <span>Бесплатный пробный урок без обязательств</span>
-            </div>
-          </form>
-        )}
-      </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }

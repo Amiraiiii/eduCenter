@@ -16,6 +16,9 @@ export interface Course {
   projectsCount: number;
   salaryExpectation: string;
   syllabus: { title: string; desc: string }[];
+  schedule?: string;
+  nextCohort?: string;
+  instructor?: { name: string; role: string };
 }
 
 export const COURSES: Course[] = [

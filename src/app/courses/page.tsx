@@ -4,17 +4,11 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { 
   Search, 
-  Code2, 
   Clock, 
   Briefcase, 
-  CheckCircle2, 
-  Star, 
   ArrowRight,
-  ArrowUpRight,
   Sparkles,
-  ChevronDown,
-  Layers,
-  Banknote
+  ChevronDown
 } from 'lucide-react';
 import { COURSES, Course } from '@/data/courses';
 import ApplicationModal from '@/components/ApplicationModal';
@@ -55,32 +49,36 @@ export default function CoursesPage() {
 
   return (
     <div className="pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-      {/* Header */}
+      {/* Editorial Header */}
       <div className="max-w-3xl mb-12 space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 text-xs font-mono">
-          <Code2 className="w-3.5 h-3.5" />
-          <span>Каталог курсов 2026</span>
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/[0.04] text-zinc-300 border border-white/[0.08] text-xs font-tech">
+          <Sparkles className="w-3.5 h-3.5 text-zinc-300" />
+          <span>Каталог авторизованных программ 2026</span>
         </div>
-        <h1 className="text-3xl sm:text-5xl font-extrabold text-white tracking-tight">
-          Программы профессиональной подготовки в IT
+        <h1 className="font-display text-4xl sm:text-6xl font-black text-white tracking-tight uppercase">
+          Практические курсы <br />
+          <span className="font-editorial-italic font-normal text-zinc-300 text-3xl sm:text-5xl lowercase">
+            для старта в IT-индустрии
+          </span>
         </h1>
-        <p className="text-zinc-400 text-xs sm:text-sm leading-relaxed">
-          Освойте профессию с нуля или повысьте квалификацию под руководством практикующих Senior-инженеров. Все курсы включают работу над портфолио и подготовку к собеседованиям.
+        <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-2xl font-tech">
+          Каждая программа разработана с участием тимлидов из Uzum, EPAM, Click и TBC. 
+          80% времени посвящено созданию коммерческих проектов в портфолио с код-ревью ментора.
         </p>
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-4 mb-8">
-        {/* Category tabs */}
-        <div className="flex items-center gap-1.5 overflow-x-auto pb-2 no-scrollbar">
+      <div className="flex flex-col md:flex-row gap-4 mb-8 justify-between items-stretch md:items-center">
+        {/* Category buttons */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 no-scrollbar">
           {categories.map((cat) => (
             <button
               key={cat.id}
               onClick={() => setActiveCategory(cat.id)}
-              className={`px-4 py-2 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
+              className={`px-4 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all ${
                 activeCategory === cat.id
-                  ? 'bg-cyan-500 text-zinc-950 font-semibold shadow-md shadow-cyan-500/20'
-                  : 'bg-white/[0.03] border border-white/[0.06] text-zinc-400 hover:text-white'
+                  ? 'bg-white text-zinc-950 shadow-md'
+                  : 'bg-white/[0.03] hover:bg-white/[0.06] border border-white/[0.06] text-zinc-400 hover:text-white'
               }`}
             >
               {cat.label}
@@ -89,149 +87,158 @@ export default function CoursesPage() {
         </div>
 
         {/* Search input */}
-        <div className="relative w-full md:w-72">
+        <div className="relative min-w-[260px]">
           <Search className="w-4 h-4 text-zinc-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
           <input
             type="text"
-            placeholder="Поиск по стеку (React, AI, Figma...)"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/[0.04] border border-white/10 focus:border-cyan-500 text-white text-xs outline-none transition-colors placeholder:text-zinc-500"
+            placeholder="Поиск по стеку (React, AI, Go...)"
+            className="w-full pl-10 pr-4 py-2 rounded-xl bg-white/[0.03] border border-white/[0.08] text-xs text-white placeholder:text-zinc-500 focus:outline-none focus:border-white/30 transition-colors font-mono"
           />
         </div>
       </div>
 
-      {/* Courses List */}
-      <div className="space-y-6">
+      {/* Course List Grid */}
+      <div className="grid grid-cols-1 gap-6">
         {filtered.map((course: Course) => (
           <div
             key={course.id}
             id={course.id}
-            className="rounded-3xl bg-[#0e1017] border border-white/[0.08] p-6 sm:p-8 hover:border-cyan-500/25 transition-all shadow-xl"
+            className="spotlight-card rounded-3xl p-6 sm:p-8 flex flex-col justify-between"
           >
-            <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-6">
-              <div className="space-y-4 max-w-3xl">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-mono px-2.5 py-0.5 rounded-full bg-white/[0.05] border border-white/[0.08] text-zinc-300">
+            <div className="space-y-6">
+              {/* Header inside card */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div className="flex items-center gap-3">
+                  <span className="text-xs font-tech px-3 py-1 rounded-full bg-white/[0.04] border border-white/[0.08] text-zinc-300">
                     {course.categoryLabel}
                   </span>
-                  <span className="text-xs px-2.5 py-0.5 rounded-full bg-blue-500/10 text-blue-400 border border-blue-500/20 font-medium">
-                    {course.level}
-                  </span>
                   {course.badge && (
-                    <span className="text-xs px-2.5 py-0.5 rounded-full bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-medium">
+                    <span className="text-xs font-tech font-semibold px-2.5 py-0.5 rounded-full bg-white/[0.08] text-zinc-200 border border-white/20">
                       {course.badge}
                     </span>
                   )}
                 </div>
 
-                <h3 className="text-xl sm:text-2xl font-bold text-white">
-                  <Link href={`/courses/${course.id}`} className="hover:text-cyan-400 transition-colors">
+                <div className="flex items-center gap-4 text-xs font-mono text-zinc-400">
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="w-3.5 h-3.5 text-zinc-400" />
+                    <span>{course.duration}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    <Briefcase className="w-3.5 h-3.5 text-zinc-400" />
+                    <span>{course.projectsCount} проекта в резюме</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Title & Desc */}
+              <div>
+                <h2 className="text-2xl sm:text-3xl font-black text-white hover:text-zinc-200 transition-colors tracking-tight">
+                  <Link href={`/courses/${course.id}`}>
                     {course.title}
                   </Link>
-                </h3>
-
-                <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed">
-                  {course.fullDesc}
+                </h2>
+                <p className="text-xs sm:text-sm text-zinc-400 mt-2 leading-relaxed max-w-4xl">
+                  {course.shortDesc}
                 </p>
+              </div>
 
-                {/* Skills tags */}
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {course.skills.map((s, idx) => (
+              {/* Stats Bar */}
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-2xl bg-white/[0.02] border border-white/[0.06]">
+                <div>
+                  <span className="text-[10px] text-zinc-500 font-mono uppercase block">Стартовая зарплата</span>
+                  <span className="text-xs sm:text-sm font-bold text-white font-mono">{course.salaryExpectation}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-zinc-500 font-mono uppercase block">Рассрочка 0%</span>
+                  <span className="text-xs sm:text-sm font-bold text-white font-mono">{course.monthlyPrice}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-zinc-500 font-mono uppercase block">Единоразово (-10%)</span>
+                  <span className="text-xs sm:text-sm font-bold text-zinc-300 font-mono">{course.price}</span>
+                </div>
+                <div>
+                  <span className="text-[10px] text-zinc-500 font-mono uppercase block">Уровень курса</span>
+                  <span className="text-xs sm:text-sm font-semibold text-white truncate block">{course.level}</span>
+                </div>
+              </div>
+
+              {/* Tech Stack Chips */}
+              <div>
+                <span className="text-[11px] font-mono text-zinc-400 block mb-2 uppercase tracking-wider">Технологии курса:</span>
+                <div className="flex flex-wrap gap-1.5">
+                  {course.skills.map((skill, i) => (
                     <span
-                      key={idx}
-                      className="text-[11px] px-2.5 py-1 rounded-lg bg-white/[0.03] border border-white/[0.06] text-zinc-300"
+                      key={i}
+                      className="text-xs px-2.5 py-1 rounded-md bg-white/[0.03] text-zinc-200 border border-white/[0.06] font-mono"
                     >
-                      {s}
+                      {skill}
                     </span>
                   ))}
                 </div>
-
-                {/* Metadata Row */}
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-2 text-xs text-zinc-400">
-                  <div className="flex items-center gap-2">
-                    <Clock className="w-4 h-4 text-cyan-400" />
-                    <span>Длительность: <strong className="text-white">{course.duration}</strong></span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Briefcase className="w-4 h-4 text-blue-400" />
-                    <span>Проекты: <strong className="text-white">{course.projectsCount} в резюме</strong></span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Banknote className="w-4 h-4 text-emerald-400" />
-                    <span>Зарплата: <strong className="text-emerald-400">{course.salaryExpectation}</strong></span>
-                  </div>
-                </div>
               </div>
 
-              {/* Pricing & CTA Card */}
-              <div className="lg:w-72 rounded-2xl bg-white/[0.02] border border-white/[0.06] p-5 flex flex-col justify-between shrink-0 space-y-4">
-                <div>
-                  <span className="text-[11px] text-zinc-400 block mb-1">Стоимость обучения</span>
-                  <div className="text-xl font-bold text-white font-mono">{course.monthlyPrice}</div>
-                  <div className="text-[11px] text-zinc-400 mt-1">или {course.price} при полной оплате (-10%)</div>
-                </div>
+              {/* Accordion Syllabus */}
+              <div>
+                <button
+                  onClick={() => toggleSyllabus(course.id)}
+                  className="flex items-center gap-2 text-xs font-semibold text-zinc-300 hover:text-white transition-colors py-2"
+                >
+                  <span>{expandedSyllabus === course.id ? 'Скрыть программу курса' : 'Посмотреть программу по модулям'}</span>
+                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${expandedSyllabus === course.id ? 'rotate-180' : ''}`} />
+                </button>
 
-                <div className="space-y-2">
-                  <button
-                    onClick={() => handleOpenApply(course.id)}
-                    className="w-full py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold text-xs tracking-wide transition-all shadow-md shadow-cyan-500/20"
-                  >
-                    Записаться на курс
-                  </button>
-
-                  <Link
-                    href={`/courses/${course.id}`}
-                    className="w-full py-2 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/15 border border-cyan-500/20 text-cyan-400 text-xs font-medium transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    <span>Подробнее о курсе</span>
-                    <ArrowUpRight className="w-3.5 h-3.5" />
-                  </Link>
-
-                  <button
-                    onClick={() => toggleSyllabus(course.id)}
-                    className="w-full py-2 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] text-zinc-300 text-xs font-medium transition-colors flex items-center justify-center gap-1.5"
-                  >
-                    <span>{expandedSyllabus === course.id ? 'Скрыть программу' : 'Быстрый план'}</span>
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform ${expandedSyllabus === course.id ? 'rotate-180' : ''}`} />
-                  </button>
-                </div>
+                {expandedSyllabus === course.id && (
+                  <div className="mt-4 pt-4 border-t border-white/[0.06] grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {course.syllabus.map((mod, idx) => (
+                      <div key={idx} className="p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-1.5">
+                        <div className="flex items-center justify-between text-xs font-tech">
+                          <span className="text-zinc-200 font-semibold">{mod.title}</span>
+                        </div>
+                        <p className="text-xs text-zinc-400 leading-relaxed">{mod.desc}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
-            {/* Expandable Syllabus */}
-            {expandedSyllabus === course.id && (
-              <div className="mt-6 pt-6 border-t border-white/[0.08] space-y-3 animate-in fade-in duration-200">
-                <h4 className="text-xs font-mono uppercase tracking-wider text-cyan-400 flex items-center gap-2 mb-3">
-                  <Layers className="w-4 h-4" />
-                  <span>Пошаговый учебный план курса</span>
-                </h4>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                  {course.syllabus.map((mod, i) => (
-                    <div key={i} className="p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.05] space-y-1">
-                      <div className="text-xs font-bold text-white">{mod.title}</div>
-                      <div className="text-[11px] text-zinc-400 leading-relaxed">{mod.desc}</div>
-                    </div>
-                  ))}
+            {/* Bottom Actions */}
+            <div className="pt-6 mt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-white/[0.04] border border-white/[0.08] flex items-center justify-center text-xs font-bold text-white font-mono">
+                  {course.instructor?.name ? course.instructor.name.split(' ').map((n: string) => n[0]).join('') : 'EC'}
+                </div>
+                <div className="text-left">
+                  <span className="text-xs font-semibold text-white block">{course.instructor?.name || 'Senior Менторы BigTech'}</span>
+                  <span className="text-[11px] text-zinc-400 block">{course.instructor?.role || 'Команда экспертов EduCenter'}</span>
                 </div>
               </div>
-            )}
+
+              <div className="flex items-center gap-3 w-full sm:w-auto">
+                <Link
+                  href={`/courses/${course.id}`}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-white/[0.03] hover:bg-white/[0.07] border border-white/[0.08] text-xs font-semibold text-zinc-300 text-center transition-all"
+                >
+                  Подробнее о курсе
+                </Link>
+
+                <button
+                  onClick={() => handleOpenApply(course.id)}
+                  className="btn-shimmer w-full sm:w-auto px-5 py-2.5 rounded-xl bg-white hover:bg-zinc-200 text-zinc-950 text-xs font-bold transition-all shadow-md active:scale-95 text-center flex items-center justify-center gap-1.5 uppercase tracking-wider"
+                >
+                  <span>Записаться</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </button>
+              </div>
+            </div>
           </div>
         ))}
-
-        {filtered.length === 0 && (
-          <div className="py-16 text-center text-zinc-400 space-y-2">
-            <p className="text-sm">Ничего не найдено по запросу «{search}»</p>
-            <button
-              onClick={() => { setSearch(''); setActiveCategory('all'); }}
-              className="text-xs text-cyan-400 hover:underline"
-            >
-              Сбросить фильтры
-            </button>
-          </div>
-        )}
       </div>
 
+      {/* Application Modal */}
       <ApplicationModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

@@ -1,12 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,400;1,600&family=Syne:wght@400;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
 @layer base {
   :root {
-    --bg-base: #090a0f;
-    --bg-surface: #11131a;
-    --bg-elevated: #181b24;
+    --bg-base: #050608;
+    --bg-surface: #0a0c10;
+    --bg-elevated: #11141a;
+    --bg-card: #0c0e14;
     --border-subtle: rgba(255, 255, 255, 0.08);
-    --border-focus: rgba(255, 255, 255, 0.2);
+    --border-medium: rgba(255, 255, 255, 0.16);
+    --border-highlight: rgba(255, 255, 255, 0.32);
+    --accent-silver: #f1f5f9;
+    --accent-platinum: #e2e8f0;
+    --accent-lunar: #cbd5e1;
   }
 
   * {
@@ -14,57 +20,155 @@
   }
 
   body {
-    background-color: #08090d;
-    color: #e4e4e7;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #050608;
+    color: #e2e8f0;
+    font-family: 'Space Grotesk', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
     overflow-x: hidden;
     min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
-  /* Custom subtle scrollbar */
+  /* Custom minimal scrollbar */
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
   ::-webkit-scrollbar-track {
-    background: #08090d;
+    background: #050608;
   }
   ::-webkit-scrollbar-thumb {
-    background: #27272a;
-    border-radius: 3px;
+    background: #1e232d;
+    border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: #3f3f46;
+    background: #333a48;
   }
 }
 
-/* Glassmorphism utility */
-.glass-panel {
-  background: rgba(17, 19, 26, 0.7);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.07);
+/* ─── High-Fashion Avant-Garde Display Font (Syne) ─── */
+.font-display {
+  font-family: 'Syne', -apple-system, sans-serif;
+  letter-spacing: -0.025em;
 }
 
-.glass-panel-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+/* ─── Haute-Couture Editorial Serif Accent (Cormorant Garamond) ─── */
+.font-editorial-italic {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.02em;
 }
-.glass-panel-hover:hover {
-  background: rgba(23, 26, 36, 0.85);
-  border-color: rgba(255, 255, 255, 0.14);
+
+/* ─── Technical Clean Font (Space Grotesk) ─── */
+.font-tech {
+  font-family: 'Space Grotesk', -apple-system, monospace;
+}
+
+/* ─── Grain / Film Texture (Cinematic Noir) ─── */
+.noise-overlay {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+/* ─── 3D Cylinder Ribbon ─── */
+.ribbon-container {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+@keyframes ribbonFloat {
+  0%, 100% {
+    transform: rotateY(-10deg) rotateX(6deg) translateY(0px);
+  }
+  50% {
+    transform: rotateY(8deg) rotateX(-4deg) translateY(-6px);
+  }
+}
+
+.animate-ribbon {
+  animation: ribbonFloat 12s ease-in-out infinite;
+}
+
+/* ─── Technical Inspector Cards (Pure Monochrome Glass) ─── */
+.inspector-card {
+  background: rgba(12, 14, 20, 0.88);
+  backdrop-filter: blur(28px);
+  -webkit-backdrop-filter: blur(28px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 45px -15px rgba(0, 0, 0, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.inspector-card:hover {
+  background: rgba(18, 22, 30, 0.96);
+  border-color: rgba(255, 255, 255, 0.22);
   transform: translateY(-2px);
+  box-shadow: 0 24px 50px -15px rgba(0, 0, 0, 0.95), inset 0 1px 0 rgba(255, 255, 255, 0.18);
 }
 
-/* Subtle accent glow */
-.accent-glow {
-  box-shadow: 0 0 40px -10px rgba(56, 189, 248, 0.15);
+/* ─── 4-Point Star Glow (Pure Platinum Silver) ─── */
+.star-glow {
+  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.6));
 }
 
-@keyframes pulseSlow {
-  0%, 100% { opacity: 0.4; transform: scale(1); }
-  50% { opacity: 0.7; transform: scale(1.05); }
+/* ─── Tactile Spotlight Card (Monochrome) ─── */
+.spotlight-card {
+  position: relative;
+  background: #090b10;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.animate-pulse-slow {
-  animation: pulseSlow 8s ease-in-out infinite;
+.spotlight-card:hover {
+  background: #0e1117;
+  border-color: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+}
+
+/* Button Shimmer */
+.btn-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.15) 25%,
+    rgba(255, 255, 255, 0.28) 30%,
+    transparent 35%
+  );
+  transform: translateX(-100%);
+  transition: transform 0.75s ease-in-out;
+  pointer-events: none;
+}
+
+.btn-shimmer:hover::after {
+  transform: translateX(100%);
+}
+
+/* ─── Marquee ─── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  display: flex;
+  width: max-content;
+  animation: marquee 35s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }
